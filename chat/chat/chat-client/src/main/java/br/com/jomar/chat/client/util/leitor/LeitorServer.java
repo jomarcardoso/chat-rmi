@@ -1,4 +1,4 @@
-package br.com.jomar.chat.client;
+package br.com.jomar.chat.client.util.leitor;
 
 import java.io.IOException;
 import java.net.InetAddress;

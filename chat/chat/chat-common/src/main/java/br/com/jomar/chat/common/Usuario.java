@@ -5,17 +5,20 @@
  */
 package br.com.jomar.chat.common;
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-
 /**
  *
- * @author Jomar
+ * @author jomar.cardoso
  */
-public interface IService {
+public class Usuario {
     
-    public ArrayList<Topico> buscaTopicos() throws RemoteException;
+    private String nome;
     
-    Boolean login(Usuario cliente) throws RemoteException;
     
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

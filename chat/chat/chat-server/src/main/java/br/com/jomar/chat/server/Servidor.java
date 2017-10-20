@@ -1,5 +1,6 @@
 package br.com.jomar.chat.server;
 
+import br.com.jomar.chat.common.Usuario;
 import br.com.jomar.chat.common.IServidor;
 import br.com.jomar.chat.common.Inscricao;
 import br.com.jomar.chat.common.Leitor;
@@ -94,18 +95,29 @@ public class Servidor implements IServidor {
     }
 
     @Override
-    public ArrayList<Noticia> buscaNoticiasIntervalo(Topico topico, Date de, Date ate) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Noticia> buscaNoticiasIntervalo(Topico topico) throws RemoteException {
+        return Repositorio.getINSTANCE().getNoticias(topico);
     }
 
     @Override
-    public Boolean login(Leitor leitor) throws RemoteException {        
-        for (Leitor l : Repositorio.getInstance().getLeitores()) {
-            if (l.getNome().equals(leitor.getNome())) {
-                return false;
+    public Boolean login(Usuario cliente) throws RemoteException {        
+        
+        if(Leitor.class.isInstance(cliente)) {
+            Repositorio.getInstance().getLeitores().add(cliente);  
+            for (Usuario l : Repositorio.getInstance().getLeitores()) {
+                if (l.getNome().equals(cliente.getNome())) {
+                    return false;
+                }
             }
-        }        
-        Repositorio.getInstance().getLeitores().add(leitor);        
+        } else {
+            Repositorio.getInstance().getEscritores().add(cliente);      
+            for (Usuario l : Repositorio.getInstance().getEscritores()) {
+                if (l.getNome().equals(cliente.getNome())) {
+                    return false;
+                }
+            }
+        }
+        
         return true;
     }
 }
