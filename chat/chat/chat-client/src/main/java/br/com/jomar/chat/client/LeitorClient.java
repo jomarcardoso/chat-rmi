@@ -17,22 +17,27 @@ public class LeitorClient {
     public static void main(String[] args) throws RemoteException, IOException, NotBoundException {
 
         IServiceLeitor service = new RmiClient<IServiceLeitor>().getService();
+        
+        final String ip = LeitorServer.getLocalHostLANAddress().getHostAddress();
+        final int port = 12399;        
+        final String name = "Jorge";
 
-        final int port = 12399;
-        final String name = "Jomar";
-
+        
         final LeitorServer server = new LeitorServer(port);
         Thread threadSocket = new Thread(server);
         threadSocket.start();
-        System.out.println("Porta 12399 aberta!");
+        System.out.println("Porta " + port + " aberta!");
 
-        Leitor leitor = new Leitor(port, name);
-        service.login(leitor);
+        Leitor leitor = new Leitor(ip, port, name);
+        String status = leitor.login(service);
+        System.out.println(status);
+        
 
-        System.out.println(name + " - " + port);
-
-        ArrayList<Topico> topicos = service.buscaTopicos();
-        System.out.println("vou me inscrever no topico: " + topicos.get(0).getNome());
-        service.inscrever(leitor, topicos.get(0));
+//        ArrayList<Topico> topicos = service.buscaTopicos();
+//        service.inscrever(leitor, topicos.get(0));
     }
+    
+    
+    
+    
 }

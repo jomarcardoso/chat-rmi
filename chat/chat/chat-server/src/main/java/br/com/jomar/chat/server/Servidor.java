@@ -16,12 +16,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Implementas os métodos remotos para o escritor e o leitor
  *
  * @author Jomar
  */
 public class Servidor implements IServidor {
-
-    public static final String IP_SERVIDOR = "127.0.0.1";
 
     public Servidor() throws RemoteException {
         super();
@@ -40,7 +39,7 @@ public class Servidor implements IServidor {
 
     private void send(Leitor leitor, Noticia noticia) throws IOException {
 
-        try (Socket cliente = new Socket(IP_SERVIDOR, leitor.getPorta())) {
+        try (Socket cliente = new Socket(leitor.getIp(), leitor.getPorta())) {
             System.out.println("O cliente se conectou ao servidor!");
             String mensagem = noticia.getTopico().getNome() + " - " + noticia.getTitulo() + " - " + noticia.getTexto();
             try (Scanner teclado = new Scanner(mensagem);
@@ -77,6 +76,7 @@ public class Servidor implements IServidor {
 
     @Override
     public boolean inscrever(Leitor leitor, Topico topico) throws RemoteException {
+        
         for (Inscricao i : Repositorio.getInstance().getInscricoes()) {
             if (i.getLeitor().equals(leitor) && i.getTopico().equals(topico)) {
                 return false;
@@ -90,7 +90,7 @@ public class Servidor implements IServidor {
 
     @Override
     public Noticia buscaUltimaNoticia(Topico topico) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Repositorio.getInstance().getNoticias().get(Repositorio.getInstance().getNoticias().size() - 1);
     }
 
     @Override
@@ -99,21 +99,13 @@ public class Servidor implements IServidor {
     }
 
     @Override
-    public Boolean login(Leitor leitor) throws RemoteException {
-
-        try { // Remover pois é teste
-            send(leitor, new Noticia("OLA", "TESTE", new Topico("teste")));
-        } catch (IOException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    public Boolean login(Leitor leitor) throws RemoteException {        
         for (Leitor l : Repositorio.getInstance().getLeitores()) {
             if (l.getNome().equals(leitor.getNome())) {
-                l.setPorta(leitor.getPorta());
-                System.out.println(l.getNome() + " - " + l.getPorta() + " fez login com sucesso");
-                return true;
+                return false;
             }
-        }
-        return false;
+        }        
+        Repositorio.getInstance().getLeitores().add(leitor);        
+        return true;
     }
 }

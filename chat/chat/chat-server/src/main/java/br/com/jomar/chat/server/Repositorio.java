@@ -7,6 +7,8 @@ import br.com.jomar.chat.common.Topico;
 import java.util.ArrayList;
 
 /**
+ * Classe Singleton com dados do servidor
+ * 
  * @author jomar.cardoso
  */
 public class Repositorio {

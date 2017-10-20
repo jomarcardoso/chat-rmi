@@ -29,17 +29,17 @@ public class RunServer {
 	 */
 	public static void main(String[] args) throws RemoteException, IOException {
 		IServidor servidor = new RunServer().initRegister();
-		servidor.criarTopico("Luta");
+                System.out.println("servidor pronto");
 
-		Leitor leitorJomar = new Leitor(0, "Jomar");
-		Leitor leitorJean = new Leitor(0, "Jean");
-		Leitor leitorFernando = new Leitor(0, "Fernando");
+//		Leitor leitorJomar = new Leitor("", 0, "Jomar");
+//		Leitor leitorJean = new Leitor("", 0, "Jean");
+//		Leitor leitorFernando = new Leitor("", 0, "Fernando");
+//
+//		Repositorio.getInstance().getLeitores().add(leitorJomar);
+//		Repositorio.getInstance().getLeitores().add(leitorJean);
+//		Repositorio.getInstance().getLeitores().add(leitorFernando);
 
-		Repositorio.getInstance().getLeitores().add(leitorJomar);
-		Repositorio.getInstance().getLeitores().add(leitorJean);
-		Repositorio.getInstance().getLeitores().add(leitorFernando);
-
-		System.out.println("servidor pronto");
+		
 	}
 
 	/**
