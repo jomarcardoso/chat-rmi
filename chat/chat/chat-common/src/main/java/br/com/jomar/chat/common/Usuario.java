@@ -5,13 +5,19 @@
  */
 package br.com.jomar.chat.common;
 
+import java.io.Serializable;
+
 /**
  *
  * @author jomar.cardoso
  */
-public class Usuario {
+public class Usuario implements Serializable {
     
     private String nome;
+    
+    public Usuario(String nome) {
+        this.nome = nome;
+    }
     
     
     public String getNome() {

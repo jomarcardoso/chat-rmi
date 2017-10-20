@@ -5,11 +5,10 @@ import java.io.Serializable;
 /**
  * @author Jomar
  */
-public class Escritor extends Usuario implements Serializable {
+public class Escritor extends Usuario {
 
-    public String nome;
-
-    public Escritor() {
+    public Escritor(String nome) {
+        super(nome);
     }
 
 }

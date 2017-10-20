@@ -4,23 +4,29 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  * @author Jomar
  */
-public class Leitor extends Usuario implements Serializable {
+public class Leitor extends Usuario {
 
     private String ip;
-    private int porta;
-    
+    private int porta;    
 
-    public Leitor(String ip, int porta) {
+    public Leitor(String ip, int porta, String nome) {
+        super(nome);
         this.ip = ip;
-        this.porta = porta;     
-    }   
+        this.porta = porta;               
+    }
+    
+    public String login(IServiceLeitor service) throws RemoteException {
+       if(service.login(this)) {
+           return "Login realizado com sucesso";           
+       } else {
+           return "Login falhou, nome repetido";
+       }
+    }        
 
     public int getPorta() {
         return porta;
@@ -29,8 +35,6 @@ public class Leitor extends Usuario implements Serializable {
     public void setPorta(int porta) {
         this.porta = porta;
     }
-
-
 
     public String getIp() {
         return ip;

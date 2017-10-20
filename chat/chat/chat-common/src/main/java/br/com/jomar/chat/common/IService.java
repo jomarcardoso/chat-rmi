@@ -16,6 +16,4 @@ public interface IService {
     
     public ArrayList<Topico> buscaTopicos() throws RemoteException;
     
-    Boolean login(Usuario cliente) throws RemoteException;
-    
 }

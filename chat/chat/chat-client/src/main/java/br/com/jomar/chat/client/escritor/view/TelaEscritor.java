@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.jomar.chat.client.view;
+package br.com.jomar.chat.client.escritor.view;
 
-import br.com.jomar.chat.common.IServiceLeitor;
 import br.com.jomar.chat.common.TelaPadrao;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -18,12 +17,12 @@ import javax.swing.JTextField;
  *
  * @author jomar.cardoso
  */
-public class TelaLeitor extends TelaPadrao implements ActionListener {
+public class TelaEscritor extends TelaPadrao implements ActionListener {
 	
     private JTextField campoOrigem;
     private JTextField campoDestino;
 
-    public TelaLeitor() {
+    public TelaEscritor() {
 
         setTitle( "Interface Exemplo" );
 
@@ -51,6 +50,8 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
         setVisible( true );
     }
 
+
+
     @Override
     public void actionPerformed(ActionEvent evento) {
 
@@ -66,8 +67,8 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
         }	
     }
 
-     //main será removido, está aqui apenas para testes
+    // main será removido, está aqui apenas para testes
     public static void main(String[] args) {		
-        new TelaLeitor();
+        new TelaEscritor();
     }
 }
