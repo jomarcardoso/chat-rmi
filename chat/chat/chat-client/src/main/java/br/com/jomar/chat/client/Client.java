@@ -18,7 +18,7 @@ public class Client {
     
     private IService service;
     
-    public String login(IServiceLeitor service, Usuario usuario) throws RemoteException {
+    public String login(IService service, Usuario usuario) throws RemoteException {
        if(service.login(usuario)) {
            return "Login realizado com sucesso";           
        } else {
