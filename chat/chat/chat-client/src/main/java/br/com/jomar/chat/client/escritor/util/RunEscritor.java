@@ -21,13 +21,14 @@ public class RunEscritor {
     
     public static void main(String[] args) throws RemoteException, NotBoundException {
         
-        IServiceEscritor service = new RmiClient<IServiceEscritor>().getService(); 
-        Escritor escritor = new Escritor("Jorges");
+        IServiceEscritor service = new RmiClient<IServiceEscritor>().getService();
+        String name = "Jomar";
+        Escritor escritor = new Escritor();
         EscritorClient escritorClient = new EscritorClient(service, escritor);
         
                
         
-        String status = escritorClient.login();
+        String status = escritorClient.login(name);
         System.out.println(status);
         //ArrayList<Topico> topicos = service.buscaTopicos();
         //service.criarNoticia(topicos.get(0), "Oi eu sou Goku", "Dragonball");

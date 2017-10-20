@@ -7,8 +7,4 @@ import java.io.Serializable;
  */
 public class Escritor extends Usuario {
 
-    public Escritor(String nome) {
-        super(nome);
-    }
-
 }

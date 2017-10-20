@@ -26,8 +26,9 @@ public class Client {
         this.usuario = usuario;
     }
     
-    public String login() {
+    public String login(String nome) {
         try {
+            usuario.setNome(nome);
             if(service.login(usuario)) {
                 return "Login realizado com sucesso";
             } else {

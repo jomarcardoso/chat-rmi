@@ -14,8 +14,7 @@ public class Leitor extends Usuario {
     private String ip;
     private int porta;    
 
-    public Leitor(String ip, int porta, String nome) {
-        super(nome);
+    public Leitor(String ip, int porta) {
         this.ip = ip;
         this.porta = porta;               
     }    

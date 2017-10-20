@@ -32,9 +32,9 @@ public class RunLeitor {
         threadSocket.start();
         System.out.println("Porta " + port + " aberta!");
 
-        Leitor leitor = new Leitor(ip, port, name);
+        Leitor leitor = new Leitor(ip, port);
         LeitorClient leitorClient = new LeitorClient(service, leitor);
-        String status = leitorClient.login();
+        String status = leitorClient.login(name);
         System.out.println(status);
         
     }
