@@ -6,7 +6,7 @@
 package br.com.jomar.chat.client.leitor.view;
 
 import br.com.jomar.chat.common.IServiceLeitor;
-import br.com.jomar.chat.common.TelaPadrao;
+import br.com.jomar.chat.client.TelaPadrao;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -28,8 +28,8 @@ public class RunEscritor {
         
                
         
-        String status = escritorClient.login(name);
-        System.out.println(status);
+        escritorClient.login(name);
+        //System.out.println(status);
         //ArrayList<Topico> topicos = service.buscaTopicos();
         //service.criarNoticia(topicos.get(0), "Oi eu sou Goku", "Dragonball");
     }

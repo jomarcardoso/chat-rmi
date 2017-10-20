@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.jomar.chat.common;
+package br.com.jomar.chat.client;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author jomar.cardoso
  */
-public class Usuario implements Serializable {
+public abstract class Usuario implements Serializable {
     
     private String nome;    
     

@@ -34,8 +34,8 @@ public class RunLeitor {
 
         Leitor leitor = new Leitor(ip, port);
         LeitorClient leitorClient = new LeitorClient(service, leitor);
-        String status = leitorClient.login(name);
-        System.out.println(status);
+        leitorClient.login(name);
+        //System.out.println(status);
         
     }
     
