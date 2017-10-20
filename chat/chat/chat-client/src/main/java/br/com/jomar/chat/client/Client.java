@@ -19,8 +19,14 @@ import java.util.logging.Logger;
 public class Client {
     
     private IService service;
+    private Usuario usuario;
     
-    public String login(IService service, Usuario usuario) {
+    public Client(IService service, Usuario usuario) {
+        this.service = service;
+        this.usuario = usuario;
+    }
+    
+    public String login() {
         try {
             if(service.login(usuario)) {
                 return "Login realizado com sucesso";

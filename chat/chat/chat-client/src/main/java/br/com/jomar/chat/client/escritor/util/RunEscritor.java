@@ -20,11 +20,14 @@ import java.util.ArrayList;
 public class RunEscritor {
     
     public static void main(String[] args) throws RemoteException, NotBoundException {
-        Escritor escritor = new Escritor("Jorges");
         
-        IServiceEscritor service = new RmiClient<IServiceEscritor>().getService();        
-        EscritorClient escritorClient = new EscritorClient();
-        String status = escritorClient.login(service, escritor);
+        IServiceEscritor service = new RmiClient<IServiceEscritor>().getService(); 
+        Escritor escritor = new Escritor("Jorges");
+        EscritorClient escritorClient = new EscritorClient(service, escritor);
+        
+               
+        
+        String status = escritorClient.login();
         System.out.println(status);
         //ArrayList<Topico> topicos = service.buscaTopicos();
         //service.criarNoticia(topicos.get(0), "Oi eu sou Goku", "Dragonball");
