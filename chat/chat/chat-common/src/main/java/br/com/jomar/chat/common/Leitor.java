@@ -25,10 +25,9 @@ public class Leitor implements Serializable {
        if(service.login(this)) {
            return "Login realizado com sucesso";           
        } else {
-           return "Login falhou, provavelmente nome repetido";
+           return "Login falhou, nome repetido";
        }
-    }
-        
+    }        
 
     public int getPorta() {
         return porta;

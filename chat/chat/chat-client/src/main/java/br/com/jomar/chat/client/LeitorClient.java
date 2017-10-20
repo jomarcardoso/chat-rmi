@@ -32,12 +32,6 @@ public class LeitorClient {
         String status = leitor.login(service);
         System.out.println(status);
         
-
-//        ArrayList<Topico> topicos = service.buscaTopicos();
-//        service.inscrever(leitor, topicos.get(0));
     }
-    
-    
-    
-    
+
 }
