@@ -18,15 +18,7 @@ public class Leitor extends Usuario {
         super(nome);
         this.ip = ip;
         this.porta = porta;               
-    }
-    
-    public String login(IServiceLeitor service) throws RemoteException {
-       if(service.login(this)) {
-           return "Login realizado com sucesso";           
-       } else {
-           return "Login falhou, nome repetido";
-       }
-    }        
+    }    
 
     public int getPorta() {
         return porta;

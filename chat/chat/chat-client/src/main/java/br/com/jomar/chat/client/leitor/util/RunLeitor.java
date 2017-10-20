@@ -33,7 +33,8 @@ public class RunLeitor {
         System.out.println("Porta " + port + " aberta!");
 
         Leitor leitor = new Leitor(ip, port, name);
-        String status = leitor.login(service);
+        LeitorClient leitorClient = new LeitorClient();
+        String status = leitorClient.login(service, leitor);
         System.out.println(status);
         
     }

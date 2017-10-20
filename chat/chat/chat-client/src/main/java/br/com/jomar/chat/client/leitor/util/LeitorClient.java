@@ -1,5 +1,6 @@
 package br.com.jomar.chat.client.leitor.util;
 
+import br.com.jomar.chat.client.Client;
 import br.com.jomar.chat.common.IServiceLeitor;
 import br.com.jomar.chat.common.Leitor;
 import br.com.jomar.chat.common.RmiClient;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 /**
  * @author jomar.cardoso
  */
-public class LeitorClient {
+public class LeitorClient extends Client {
 
 
 
