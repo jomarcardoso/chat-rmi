@@ -15,6 +15,6 @@ public interface IServiceLeitor extends IService {
 
     ArrayList<Noticia> buscaNoticiasIntervalo(Topico topico, Date de, Date ate) throws RemoteException;
 
-    Boolean login(Leitor leitor) throws RemoteException;
+    Boolean login(Usuario usuario) throws RemoteException;
 
 }

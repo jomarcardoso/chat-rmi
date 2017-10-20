@@ -5,6 +5,7 @@ import br.com.jomar.chat.common.Inscricao;
 import br.com.jomar.chat.common.Leitor;
 import br.com.jomar.chat.common.Noticia;
 import br.com.jomar.chat.common.Topico;
+import br.com.jomar.chat.common.Usuario;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -99,13 +100,24 @@ public class Servidor implements IServidor {
     }
 
     @Override
-    public Boolean login(Leitor leitor) throws RemoteException {        
-        for (Leitor l : Repositorio.getInstance().getLeitores()) {
-            if (l.getNome().equals(leitor.getNome())) {
-                return false;
+    public Boolean login(Usuario usuario) throws RemoteException {        
+        if(Leitor.class.isInstance(usuario)) {
+            for (Usuario l : Repositorio.getInstance().getLeitores()) {
+                if (l.getNome().equals(usuario.getNome())) {
+                    return false;
+                }
             }
-        }        
-        Repositorio.getInstance().getLeitores().add(leitor);        
+            Repositorio.getInstance().getLeitores().add(usuario);
+        } else {
+            Repositorio.getInstance().getEscritores();      
+            for (Usuario l : Repositorio.getInstance().getEscritores()) {
+                if (l.getNome().equals(usuario.getNome())) {
+                    return false;
+                }
+            }
+            Repositorio.getInstance().getEscritores().add(usuario);
+        }
+        
         return true;
     }
 }

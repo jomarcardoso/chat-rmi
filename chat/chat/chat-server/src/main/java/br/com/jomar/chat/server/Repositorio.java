@@ -4,6 +4,7 @@ import br.com.jomar.chat.common.Inscricao;
 import br.com.jomar.chat.common.Leitor;
 import br.com.jomar.chat.common.Noticia;
 import br.com.jomar.chat.common.Topico;
+import br.com.jomar.chat.common.Usuario;
 import java.util.ArrayList;
 
 /**
@@ -16,12 +17,14 @@ public class Repositorio {
     private final ArrayList<Topico> topicos;
     private final ArrayList<Inscricao> inscricoes;
     private final ArrayList<Noticia> noticias;
-    private final ArrayList<Leitor> leitores;
+    private final ArrayList<Usuario> leitores;
+    private final ArrayList<Usuario> escritores;
 
     private static final Repositorio INSTANCE = new Repositorio();
 
     private Repositorio() {
         this.leitores = new ArrayList<>();
+        this.escritores = new ArrayList<>();
         this.noticias = new ArrayList<>();
         this.inscricoes = new ArrayList<>();
         this.topicos = new ArrayList<>();
@@ -43,7 +46,11 @@ public class Repositorio {
         return noticias;
     }
 
-    public ArrayList<Leitor> getLeitores() {
+    public ArrayList<Usuario> getLeitores() {
         return leitores;
+    }
+    
+    public ArrayList<Usuario> getEscritores() {
+        return escritores;
     }
 }
