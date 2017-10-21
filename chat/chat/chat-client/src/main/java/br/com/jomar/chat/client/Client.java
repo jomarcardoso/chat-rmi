@@ -10,8 +10,6 @@ import br.com.jomar.chat.common.Topico;
 import br.com.jomar.chat.common.Usuario;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -71,9 +69,5 @@ public abstract class Client implements IClient {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-
-
-    
+    }    
 }
