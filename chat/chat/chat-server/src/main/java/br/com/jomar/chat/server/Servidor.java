@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * Implementas os métodos remotos para o escritor e o leitor
@@ -27,20 +29,8 @@ public class Servidor implements IServidor {
         super();
     }
 
-    public void enviarNoticia(Noticia noticia) throws IOException {
-        final ArrayList<Inscricao> inscricoes = Repositorio.getInstance().getInscricoes();
-        for (Inscricao inscriacao : inscricoes) {
-            final String nomeInscricao = inscriacao.getTopico().getNome();
-            System.out.println(nomeInscricao);
-            if (nomeInscricao.equals(noticia.getTopico().getNome())) {
-                send(inscriacao.getLeitor(), noticia);
-            }
-        }
-    }
-
-    private void send(Leitor leitor, Noticia noticia) throws IOException {
-
-        try (Socket cliente = new Socket(leitor.getIp(), leitor.getPorta())) {
+    private void enviarNoticia(Usuario usuario, Noticia noticia) throws IOException {
+        try (Socket cliente = new Socket(usuario.getIp(), usuario.getPorta())) {
             System.out.println("O cliente se conectou ao servidor!");
             String mensagem = noticia.getTopico().getNome() + " - " + noticia.getTitulo() + " - " + noticia.getTexto();
             try (Scanner teclado = new Scanner(mensagem);
@@ -65,11 +55,14 @@ public class Servidor implements IServidor {
     @Override
     public Boolean criarNoticia(Noticia noticia) throws RemoteException {
         Repositorio.getInstance().getNoticias().add(noticia);
-        try {
-            this.enviarNoticia(noticia);
-            return true;
-        } catch (IOException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        for(Inscricao i : Repositorio.getInstance().getInscricoes()) {
+            if(noticia.getTopico().getNome().equals(i.getTopico().getNome())) {
+                try {
+                    this.enviarNoticia(i.getLeitor(), noticia);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Usuario " + i.getLeitor().getNome() + "esta desconectado", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
         return false;
     }
@@ -108,7 +101,7 @@ public class Servidor implements IServidor {
                 if (l.getNome().equals(usuario.getNome())) {
                     return false;
                 }
-            }
+            }            
             Repositorio.getInstance().getLeitores().add(usuario);
         } else {
             Repositorio.getInstance().getEscritores();      

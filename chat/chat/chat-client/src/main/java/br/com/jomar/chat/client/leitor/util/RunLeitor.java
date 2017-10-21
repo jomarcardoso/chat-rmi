@@ -5,6 +5,7 @@
  */
 package br.com.jomar.chat.client.leitor.util;
 
+import br.com.jomar.chat.client.ClienteServer;
 import br.com.jomar.chat.common.IServiceLeitor;
 import br.com.jomar.chat.common.Leitor;
 import br.com.jomar.chat.common.RmiClient;
@@ -27,7 +28,8 @@ public class RunLeitor {
         final String name = "Jorge";
 
         
-        final LeitorServer server = new LeitorServer(port);
+        //final LeitorServer server = new LeitorServer(port);
+        final ClienteServer server = new ClienteServer(port);
         Thread threadSocket = new Thread(server);
         threadSocket.start();
         System.out.println("Porta " + port + " aberta!");

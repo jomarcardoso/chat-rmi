@@ -1,6 +1,10 @@
-package br.com.jomar.chat.client.leitor.util;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.com.jomar.chat.client;
 
-import br.com.jomar.chat.client.ClienteServer;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -9,20 +13,20 @@ import java.net.Socket;
 import java.rmi.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
+ *
  * @author Jomar
  */
-class LeitorServer extends ServerSocket implements Runnable {
+public class ClienteServer extends ServerSocket implements Runnable {
     
-    
-    public LeitorServer() throws IOException {
+ public ClienteServer() throws IOException {
         super();
     }
 
-    LeitorServer(int port) throws IOException {
+    public ClienteServer(int port) throws IOException {
         super(port);
     }
 
@@ -31,6 +35,7 @@ class LeitorServer extends ServerSocket implements Runnable {
         while(true) {       
             Socket cliente;
             try {
+                JOptionPane.showMessageDialog(new JFrame(), "Servidor socket bombando", "Socket", JOptionPane.INFORMATION_MESSAGE);
                 cliente = this.accept();
                 System.out.println("Nova conexão com o cliente " + cliente.getInetAddress().getHostAddress());
                 Scanner s = new Scanner(cliente.getInputStream());
@@ -40,7 +45,7 @@ class LeitorServer extends ServerSocket implements Runnable {
                 s.close();    
                 cliente.close();  
             } catch (IOException ex) {
-                Logger.getLogger(LeitorServer.class.getName()).log(Level.SEVERE, null, ex);
+                Cliente.erroServidor();
             }
         }
     }
@@ -91,4 +96,5 @@ class LeitorServer extends ServerSocket implements Runnable {
             throw unknownHostException;
         }
     }
+    
 }

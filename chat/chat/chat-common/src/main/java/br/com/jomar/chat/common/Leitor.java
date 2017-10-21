@@ -11,28 +11,10 @@ import javax.swing.JOptionPane;
  */
 public class Leitor extends Usuario {
 
-    private String ip;
-    private int porta;    
-
     public Leitor(String ip, int porta) {
-        this.ip = ip;
-        this.porta = porta;               
-    }    
-
-    public int getPorta() {
-        return porta;
+        super(ip, porta);
     }
 
-    public void setPorta(int porta) {
-        this.porta = porta;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }    
+ 
 
 }

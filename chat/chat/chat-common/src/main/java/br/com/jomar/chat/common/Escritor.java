@@ -7,4 +7,8 @@ import java.io.Serializable;
  */
 public class Escritor extends Usuario {
 
+    public Escritor(String ip, int porta) {
+        super(ip, porta);
+    }
+
 }

@@ -51,7 +51,7 @@ public abstract class Cliente implements ICliente {
         return null;
     }
     
-    protected void erroServidor() {
+    public static void erroServidor() {
         JOptionPane.showMessageDialog(new JFrame(), "Problema de comunicação com o servidor", "Erro", JOptionPane.ERROR_MESSAGE);
     }
 
