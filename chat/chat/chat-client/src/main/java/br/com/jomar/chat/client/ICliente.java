@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Jomar
  */
-interface IClient {
+interface ICliente {
     
     public void login(String nome);
     

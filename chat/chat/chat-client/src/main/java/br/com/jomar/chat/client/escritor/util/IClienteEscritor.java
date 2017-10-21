@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author Jomar
  */
-public interface IClientEscritor {
+public interface IClienteEscritor {
     
     public void criarTopico(String nome) throws RemoteException;    
     

@@ -24,7 +24,7 @@ public class RunEscritor {
         IServiceEscritor service = new RmiClient<IServiceEscritor>().getService();
         String name = "Jomar";
         Escritor escritor = new Escritor();
-        EscritorClient escritorClient = new EscritorClient(service, escritor);
+        ClienteEscritor escritorClient = new ClienteEscritor(service, escritor);
         
                
         

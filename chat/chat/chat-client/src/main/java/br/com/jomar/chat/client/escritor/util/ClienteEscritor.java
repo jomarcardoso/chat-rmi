@@ -1,6 +1,6 @@
 package br.com.jomar.chat.client.escritor.util;
 
-import br.com.jomar.chat.client.Client;
+import br.com.jomar.chat.client.Cliente;
 import br.com.jomar.chat.common.IServiceEscritor;
 import br.com.jomar.chat.common.Noticia;
 import br.com.jomar.chat.common.Topico;
@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
 /**
  * @author jomar.cardoso
  */
-public class EscritorClient extends Client implements IClientEscritor { 
+public class ClienteEscritor extends Cliente implements IClienteEscritor { 
 
-    public EscritorClient(IServiceEscritor service, Usuario usuario) {
+    public ClienteEscritor(IServiceEscritor service, Usuario usuario) {
         super(service, usuario);
     }
 
@@ -41,7 +41,7 @@ public class EscritorClient extends Client implements IClientEscritor {
             this.getService().criarNoticia(noticia);
             JOptionPane.showMessageDialog(new JFrame(), "Topico criado com sucesso", "Noticia", JOptionPane.INFORMATION_MESSAGE);            
         } catch (RemoteException ex) {
-            Logger.getLogger(EscritorClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteEscritor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -17,12 +17,12 @@ import javax.swing.JOptionPane;
  *
  * @author jomar.cardoso
  */
-public abstract class Client implements IClient {
+public abstract class Cliente implements ICliente {
     
     protected IService service;
     protected Usuario usuario;
     
-    public Client(IService service, Usuario usuario) {
+    public Cliente(IService service, Usuario usuario) {
         this.service = service;
         this.usuario = usuario;
     }
