@@ -2,6 +2,7 @@ package br.com.jomar.chat.client.leitor.util;
 
 import br.com.jomar.chat.client.Client;
 import br.com.jomar.chat.common.IService;
+import br.com.jomar.chat.common.IServiceLeitor;
 import br.com.jomar.chat.common.Usuario;
 
 /**
@@ -12,8 +13,11 @@ public class LeitorClient extends Client {
     public LeitorClient(IService service, Usuario usuario) {
         super(service, usuario);
     }
-    
- 
+
+    @Override
+    public IServiceLeitor getService() {
+        return (IServiceLeitor) this.service;
+    }
 
 
 }

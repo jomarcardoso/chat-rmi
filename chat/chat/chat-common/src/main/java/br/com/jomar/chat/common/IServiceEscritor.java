@@ -14,8 +14,9 @@ import java.util.ArrayList;
  */
 public interface IServiceEscritor extends IService {
     
-    public ArrayList<Topico> criarTopico(String nome) throws RemoteException;    
-    public Noticia criarNoticia(Topico topico, String texto, String Titulo) throws RemoteException;    
+    public Boolean criarTopico(Topico topico) throws RemoteException;    
+    
+    public Boolean criarNoticia(Noticia noticia) throws RemoteException;    
        
     
 }

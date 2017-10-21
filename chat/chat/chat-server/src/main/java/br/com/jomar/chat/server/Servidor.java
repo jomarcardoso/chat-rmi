@@ -52,22 +52,26 @@ public class Servidor implements IServidor {
     }
 
     @Override
-    public ArrayList<Topico> criarTopico(String nome) throws RemoteException {
-        Topico topico = new Topico(nome);
+    public Boolean criarTopico(Topico topico) throws RemoteException {
         Repositorio.getInstance().getTopicos().add(topico);
-        return Repositorio.getInstance().getTopicos();
+        for (Topico l : Repositorio.getInstance().getTopicos()) {
+            if (l.getNome().equals(topico.getNome())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
-    public Noticia criarNoticia(Topico topico, String texto, String titulo) throws RemoteException {
-        Noticia noticia = new Noticia(texto, titulo, topico);
+    public Boolean criarNoticia(Noticia noticia) throws RemoteException {
         Repositorio.getInstance().getNoticias().add(noticia);
         try {
             this.enviarNoticia(noticia);
+            return true;
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return noticia;
+        return false;
     }
 
     @Override

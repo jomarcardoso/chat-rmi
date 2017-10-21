@@ -19,16 +19,17 @@ import javax.swing.JOptionPane;
  *
  * @author jomar.cardoso
  */
-public abstract class Client {
+public abstract class Client implements IClient {
     
-    private IService service;
-    private Usuario usuario;
+    protected IService service;
+    protected Usuario usuario;
     
     public Client(IService service, Usuario usuario) {
         this.service = service;
         this.usuario = usuario;
     }
     
+    @Override
     public void login(String nome) {
         try {
             usuario.setNome(nome);
@@ -38,18 +39,41 @@ public abstract class Client {
             } else {
                 JOptionPane.showMessageDialog(new JFrame(), "Login falhou, nome repetido", "Login", JOptionPane.ERROR_MESSAGE);
             }} catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(new JFrame(), "Problema de comunicação com o servidor", "Login", JOptionPane.ERROR_MESSAGE);
+            erroServidor();
         }
     }    
     
+    @Override
     public ArrayList<Topico> buscaTopicos() {
         try {
             return this.service.buscaTopicos();
         } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(new JFrame(), "Problema de comunicação com o servidor", "Login", JOptionPane.ERROR_MESSAGE);
+            erroServidor();
         } 
         return null;
     }
+    
+    protected void erroServidor() {
+        JOptionPane.showMessageDialog(new JFrame(), "Problema de comunicação com o servidor", "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public IService getService() {
+        return service;
+    }
+
+    public void setService(IService service) {
+        this.service = service;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+
 
     
 }
