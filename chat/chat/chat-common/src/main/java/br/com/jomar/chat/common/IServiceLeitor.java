@@ -9,10 +9,10 @@ import java.util.Date;
  */
 public interface IServiceLeitor extends IService {
 
-    boolean inscrever(Leitor leitor, Topico topico) throws RemoteException;
+    boolean inscrever(Inscricao inscricao) throws RemoteException;
 
     Noticia buscaUltimaNoticia(Topico topico) throws RemoteException;
 
-    ArrayList<Noticia> buscaNoticiasIntervalo(Topico topico, Date de, Date ate) throws RemoteException;    
+    ArrayList<Noticia> buscaNoticiasIntervalo(Topico topico) throws RemoteException;    
 
 }

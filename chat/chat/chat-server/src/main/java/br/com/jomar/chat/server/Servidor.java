@@ -44,7 +44,7 @@ public class Servidor implements IServidor {
             System.out.println("O cliente se conectou ao servidor!");
             String mensagem = noticia.getTopico().getNome() + " - " + noticia.getTitulo() + " - " + noticia.getTexto();
             try (Scanner teclado = new Scanner(mensagem);
-                    PrintStream saida = new PrintStream(cliente.getOutputStream());) {
+                PrintStream saida = new PrintStream(cliente.getOutputStream());) {
                 saida.println(teclado.nextLine());
                 saida.close();
             }
@@ -52,13 +52,13 @@ public class Servidor implements IServidor {
     }
 
     @Override
-    public Boolean criarTopico(Topico topico) throws RemoteException {
-        Repositorio.getInstance().getTopicos().add(topico);
+    public Boolean criarTopico(Topico topico) throws RemoteException {        
         for (Topico l : Repositorio.getInstance().getTopicos()) {
             if (l.getNome().equals(topico.getNome())) {
                 return false;
             }
         }
+        Repositorio.getInstance().getTopicos().add(topico); 
         return true;
     }
 
@@ -80,16 +80,14 @@ public class Servidor implements IServidor {
     }
 
     @Override
-    public boolean inscrever(Leitor leitor, Topico topico) throws RemoteException {
+    public boolean inscrever(Inscricao inscricao) throws RemoteException {
         
         for (Inscricao i : Repositorio.getInstance().getInscricoes()) {
-            if (i.getLeitor().equals(leitor) && i.getTopico().equals(topico)) {
+            if (i.getLeitor().equals(inscricao.getLeitor()) && i.getTopico().equals(inscricao.getTopico())) {
                 return false;
             }
         }
-        Inscricao inscricao = new Inscricao(leitor, topico);
         Repositorio.getInstance().getInscricoes().add(inscricao);
-        System.out.println("Inscrito em topico");
         return true;
     }
 
@@ -99,7 +97,7 @@ public class Servidor implements IServidor {
     }
 
     @Override
-    public ArrayList<Noticia> buscaNoticiasIntervalo(Topico topico, Date de, Date ate) throws RemoteException {
+    public ArrayList<Noticia> buscaNoticiasIntervalo(Topico topico) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
