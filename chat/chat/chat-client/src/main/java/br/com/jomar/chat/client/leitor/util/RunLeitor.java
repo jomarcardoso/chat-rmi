@@ -39,6 +39,8 @@ public class RunLeitor {
         leitorClient.login(name);
         //System.out.println(status);
         
+        leitorClient.inscrever(leitor, leitorClient.buscaTopicos().get(0));
+        
     }
     
 }

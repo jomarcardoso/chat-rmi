@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import br.com.jomar.chat.common.Configuration;
 import br.com.jomar.chat.common.IServidor;
 import br.com.jomar.chat.common.Leitor;
+import br.com.jomar.chat.common.Topico;
 import br.com.jomar.chat.server.Repositorio;
 import br.com.jomar.chat.server.Servidor;
 
@@ -29,7 +30,9 @@ public class RunServer {
 	 */
 	public static void main(String[] args) throws RemoteException, IOException {
 		IServidor servidor = new RunServer().initRegister();
-                System.out.println("servidor pronto");		
+                System.out.println("servidor pronto");	
+                
+                servidor.criarTopico(new Topico("Luta"));
 	}
 
 	/**

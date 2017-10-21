@@ -39,7 +39,7 @@ public class ClienteEscritor extends Cliente implements IClienteEscritor {
         Noticia noticia = new Noticia(texto, titulo, topico);
         try {
             this.getService().criarNoticia(noticia);
-            JOptionPane.showMessageDialog(new JFrame(), "Topico criado com sucesso", "Noticia", JOptionPane.INFORMATION_MESSAGE);            
+            JOptionPane.showMessageDialog(new JFrame(), "Noticia criada com sucesso", "Noticia", JOptionPane.INFORMATION_MESSAGE);            
         } catch (RemoteException ex) {
             Logger.getLogger(ClienteEscritor.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -34,9 +34,9 @@ public class ClienteLeitor extends Cliente implements IClienteLeitor {
         Inscricao inscricao = new Inscricao(leitor, topico);
         try {
             if(this.getService().inscrever(inscricao)) {
-                JOptionPane.showMessageDialog(new JFrame(), "Topico criado com sucesso", "Topico", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(new JFrame(), "Inscrito criado com sucesso", "Topico", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(new JFrame(), "Novo Topico falhou, nome repetido", "Topico", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(new JFrame(), "Voce ja esta inscrito neste topico!", "Topico", JOptionPane.ERROR_MESSAGE);
             }
         } catch (RemoteException ex) {
             erroServidor();
