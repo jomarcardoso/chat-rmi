@@ -5,7 +5,12 @@
  */
 package br.com.jomar.chat.client;
 
+import br.com.jomar.chat.client.leitor.util.ClienteLeitor;
+import br.com.jomar.chat.common.IMensagem;
+import br.com.jomar.chat.common.Noticia;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
@@ -13,6 +18,8 @@ import java.net.Socket;
 import java.rmi.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -22,6 +29,8 @@ import javax.swing.JOptionPane;
  */
 public class ClienteServer extends ServerSocket implements Runnable {
     
+    protected Cliente cliente;
+    
  public ClienteServer() throws IOException {
         super();
     }
@@ -30,20 +39,34 @@ public class ClienteServer extends ServerSocket implements Runnable {
         super(port);
     }
 
+    public ClienteServer(ClienteLeitor cliente) throws IOException {
+        super(cliente.getUsuario().getPorta());
+        this.cliente = cliente;
+    }
+
     @Override
     public void run() {
+        JOptionPane.showMessageDialog(new JFrame(), "Servidor socket bombando", "Socket", JOptionPane.INFORMATION_MESSAGE);
         while(true) {       
-            Socket cliente;
-            try {
-                JOptionPane.showMessageDialog(new JFrame(), "Servidor socket bombando", "Socket", JOptionPane.INFORMATION_MESSAGE);
-                cliente = this.accept();
-                System.out.println("Nova conexão com o cliente " + cliente.getInetAddress().getHostAddress());
-                Scanner s = new Scanner(cliente.getInputStream());
-                while (s.hasNextLine()) {
-                   System.out.println(s.nextLine());
-                }
-                s.close();    
-                cliente.close();  
+            Socket socket;
+            try {                
+                socket = this.accept();
+                System.out.println("Nova conexão com o cliente " + socket.getInetAddress().getHostAddress());
+//                Scanner s = new Scanner(cliente.getInputStream());
+//                while (s.hasNextLine()) {
+//                   System.out.println(s.nextLine());
+//                }
+//                s.close();   
+                //ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
+                try {
+                    IMensagem mensagem = (IMensagem) is.readObject();
+                    this.getCliente().lerMensagem(mensagem);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ClienteServer.class.getName()).log(Level.SEVERE, null, ex);
+                }          
+                is.close();
+                socket.close();  
             } catch (IOException ex) {
                 Cliente.erroServidor();
             }
@@ -95,6 +118,14 @@ public class ClienteServer extends ServerSocket implements Runnable {
             unknownHostException.initCause(e);
             throw unknownHostException;
         }
+    }
+
+    public Cliente getCliente() {
+        return this.cliente;
+    }
+
+    public void setClient(Cliente cliente) {
+        this.cliente = cliente;
     }
     
 }

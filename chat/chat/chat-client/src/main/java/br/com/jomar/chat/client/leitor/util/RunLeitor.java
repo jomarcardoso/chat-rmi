@@ -26,16 +26,18 @@ public class RunLeitor {
         final String ip = LeitorServer.getLocalHostLANAddress().getHostAddress();
         final int port = 12399;        
         final String name = "Jorge";
+        Leitor leitor = new Leitor(ip, port);
+        ClienteLeitor leitorClient = new ClienteLeitor(service, leitor);
 
         
         //final LeitorServer server = new LeitorServer(port);
-        final ClienteServer server = new ClienteServer(port);
+        final ClienteServer server = new LeitorServer(leitorClient);
         Thread threadSocket = new Thread(server);
         threadSocket.start();
         System.out.println("Porta " + port + " aberta!");
 
-        Leitor leitor = new Leitor(ip, port);
-        ClienteLeitor leitorClient = new ClienteLeitor(service, leitor);
+        
+        
         leitorClient.login(name);
         //System.out.println(status);
         

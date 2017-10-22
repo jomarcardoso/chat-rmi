@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author Jomar
  */
-public class Topico implements Serializable {
+public class Topico implements Serializable, IMensagem {
 
     private String nome;
 

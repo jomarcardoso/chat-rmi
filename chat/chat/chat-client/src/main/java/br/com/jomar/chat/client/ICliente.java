@@ -5,6 +5,7 @@
  */
 package br.com.jomar.chat.client;
 
+import br.com.jomar.chat.common.IMensagem;
 import br.com.jomar.chat.common.Topico;
 import java.util.ArrayList;
 
@@ -17,5 +18,7 @@ interface ICliente {
     public void login(String nome);
     
     public ArrayList<Topico> buscaTopicos();
+    
+    public void lerMensagem(IMensagem mensagem);
     
 }

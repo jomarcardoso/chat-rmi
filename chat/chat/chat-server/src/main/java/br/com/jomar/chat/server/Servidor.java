@@ -7,6 +7,8 @@ import br.com.jomar.chat.common.Noticia;
 import br.com.jomar.chat.common.Topico;
 import br.com.jomar.chat.common.Usuario;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
@@ -30,14 +32,17 @@ public class Servidor implements IServidor {
     }
 
     private void enviarNoticia(Usuario usuario, Noticia noticia) throws IOException {
-        try (Socket cliente = new Socket(usuario.getIp(), usuario.getPorta())) {
+        try (Socket socket = new Socket(usuario.getIp(), usuario.getPorta())) {
             System.out.println("O cliente se conectou ao servidor!");
             String mensagem = noticia.getTopico().getNome() + " - " + noticia.getTitulo() + " - " + noticia.getTexto();
-            try (Scanner teclado = new Scanner(mensagem);
-                PrintStream saida = new PrintStream(cliente.getOutputStream());) {
-                saida.println(teclado.nextLine());
-                saida.close();
-            }
+//            try (Scanner teclado = new Scanner(mensagem);
+//                PrintStream saida = new PrintStream(cliente.getOutputStream());) {
+//                saida.println(teclado.nextLine());
+//                saida.close();
+//            }
+            ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
+            os.writeObject(noticia);
+            os.close();
         }
     }
 

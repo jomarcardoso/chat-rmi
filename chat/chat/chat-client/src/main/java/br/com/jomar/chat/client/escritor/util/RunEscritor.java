@@ -36,6 +36,7 @@ public class RunEscritor {
         //escritorClient.criarTopico("jogos");
         Topico topico = escritorClient.buscaTopicos().get(0);
         escritorClient.criarNoticia(topico, "Oi eu Sou Goku", "Dragonball");
+        escritorClient.criarNoticia(topico, "Oi eu Sou Goku2", "Dragonball");
         //System.out.println(status);
         //ArrayList<Topico> topicos = service.buscaTopicos();
         //service.criarNoticia(topicos.get(0), "Oi eu sou Goku", "Dragonball");

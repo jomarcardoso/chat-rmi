@@ -5,7 +5,9 @@
  */
 package br.com.jomar.chat.client;
 
+import br.com.jomar.chat.common.IMensagem;
 import br.com.jomar.chat.common.IService;
+import br.com.jomar.chat.common.Noticia;
 import br.com.jomar.chat.common.Topico;
 import br.com.jomar.chat.common.Usuario;
 import java.rmi.RemoteException;
@@ -49,6 +51,17 @@ public abstract class Cliente implements ICliente {
             erroServidor();
         } 
         return null;
+    }
+    
+    @Override
+    public void lerMensagem(IMensagem mensagem) {
+        if(Topico.class.isInstance(mensagem)) {
+            Topico topico = (Topico) mensagem;
+            System.out.println(topico.getNome());
+        } else if(Noticia.class.isInstance(mensagem)) {
+            Noticia noticia = (Noticia) mensagem;
+            System.out.println(noticia.getTexto());
+        }
     }
     
     public static void erroServidor() {
