@@ -4,6 +4,7 @@ import br.com.jomar.chat.common.IServidor;
 import br.com.jomar.chat.common.Inscricao;
 import br.com.jomar.chat.common.Leitor;
 import br.com.jomar.chat.common.Noticia;
+import br.com.jomar.chat.common.Ping;
 import br.com.jomar.chat.common.Topico;
 import br.com.jomar.chat.common.Usuario;
 import java.io.IOException;
@@ -33,13 +34,6 @@ public class Servidor implements IServidor {
 
     private void enviarNoticia(Usuario usuario, Noticia noticia) throws IOException {
         try (Socket socket = new Socket(usuario.getIp(), usuario.getPorta())) {
-            System.out.println("O cliente se conectou ao servidor!");
-            String mensagem = noticia.getTopico().getNome() + " - " + noticia.getTitulo() + " - " + noticia.getTexto();
-//            try (Scanner teclado = new Scanner(mensagem);
-//                PrintStream saida = new PrintStream(cliente.getOutputStream());) {
-//                saida.println(teclado.nextLine());
-//                saida.close();
-//            }
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
             os.writeObject(noticia);
             os.close();
@@ -104,25 +98,36 @@ public class Servidor implements IServidor {
         if(Leitor.class.isInstance(usuario)) {
             for (Usuario l : Repositorio.getInstance().getLeitores()) {
                 if (l.getNome().equals(usuario.getNome())) {
+                    Repositorio.getInstance().getLeitores().remove(l);
+                    Repositorio.getInstance().getLeitores().add(usuario);
                     return false;
-                }
+                }                
             }            
             Repositorio.getInstance().getLeitores().add(usuario);
         } else {
             Repositorio.getInstance().getEscritores();      
             for (Usuario l : Repositorio.getInstance().getEscritores()) {
                 if (l.getNome().equals(usuario.getNome())) {
+                    Repositorio.getInstance().getLeitores().remove(l);
+                    Repositorio.getInstance().getLeitores().add(usuario);
                     return false;
                 }
             }
             Repositorio.getInstance().getEscritores().add(usuario);
-        }
-        
+        }        
         return true;
     }
 
     @Override
     public ArrayList<Noticia> buscaTodasNoticias() throws RemoteException {
         return Repositorio.getInstance().getNoticias();
+    }
+
+    private void ping(Usuario usuario) throws IOException {
+        try (Socket socket = new Socket(usuario.getIp(), usuario.getPorta())) {
+            ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
+            os.writeObject(new Ping());
+            os.close();
+        }
     }
 }

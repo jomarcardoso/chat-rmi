@@ -5,6 +5,7 @@
  */
 package br.com.jomar.chat.client.escritor.util;
 
+import br.com.jomar.chat.client.escritor.view.TelaEscritor;
 import br.com.jomar.chat.common.Escritor;
 import br.com.jomar.chat.common.IServiceEscritor;
 import br.com.jomar.chat.common.RmiClient;
@@ -40,6 +41,8 @@ public class RunEscritor {
         //System.out.println(status);
         //ArrayList<Topico> topicos = service.buscaTopicos();
         //service.criarNoticia(topicos.get(0), "Oi eu sou Goku", "Dragonball");
+        
+        new TelaEscritor(escritorClient);
     }
     
 }

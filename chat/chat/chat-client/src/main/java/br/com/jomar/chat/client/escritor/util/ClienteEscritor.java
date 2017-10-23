@@ -76,11 +76,12 @@ public class ClienteEscritor extends Cliente implements IClienteEscritor {
     }
 
     @Override
-    public void abrirSocket() {
-//        server = new EscritorServer(this);
-//
+    public void abrirSocket() throws IOException {
+
+//        server = new EscritorServer(this);        
 //        Thread threadSocket = new Thread(server);
 //        threadSocket.start();
-        //System.out.println("Porta " + port + " aberta!");
+        
     }
+    
 }

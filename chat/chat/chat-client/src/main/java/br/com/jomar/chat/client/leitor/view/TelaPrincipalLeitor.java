@@ -17,6 +17,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JDesktopPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import javax.swing.JOptionPane;
 
 public class TelaPrincipalLeitor extends JFrame {
 
@@ -84,6 +88,10 @@ public class TelaPrincipalLeitor extends JFrame {
         setContentPane(contentPane);
 
         contentPane.add(desktopPane, BorderLayout.CENTER);
+        
+        TelaPrincipalLeitor frame = this;
+        
+        
     }
 
     public void mostraNovaNoticia(String noticia) {
@@ -94,20 +102,4 @@ public class TelaPrincipalLeitor extends JFrame {
 
     }
     
-        /**
-     * Launch the application.
-     */
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    TelaPrincipalLeitor frame = new TelaPrincipalLeitor(false);
-//                    frame.setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
-
 }

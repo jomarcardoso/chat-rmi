@@ -5,6 +5,7 @@
  */
 package br.com.jomar.chat.client;
 
+import br.com.jomar.chat.client.escritor.util.ClienteEscritor;
 import br.com.jomar.chat.client.leitor.util.ClienteLeitor;
 import br.com.jomar.chat.common.IMensagem;
 import br.com.jomar.chat.common.Noticia;
@@ -30,6 +31,7 @@ import javax.swing.JOptionPane;
 public class ClienteServer extends ServerSocket implements Runnable {
     
     protected Cliente cliente;
+    protected Socket socket;
     
  public ClienteServer() throws IOException {
         super();
@@ -43,12 +45,17 @@ public class ClienteServer extends ServerSocket implements Runnable {
         super(cliente.getUsuario().getPorta());
         this.cliente = cliente;
     }
+    
+    public ClienteServer(ClienteEscritor cliente) throws IOException {
+        super(cliente.getUsuario().getPorta());
+        this.cliente = cliente;
+    }
 
     @Override
     public void run() {
         JOptionPane.showMessageDialog(new JFrame(), "Servidor socket bombando", "Socket", JOptionPane.INFORMATION_MESSAGE);
         while(true) {       
-            Socket socket;
+            
             try {                
                 socket = this.accept();
                 System.out.println("Nova conexão com o cliente " + socket.getInetAddress().getHostAddress());
@@ -71,6 +78,16 @@ public class ClienteServer extends ServerSocket implements Runnable {
                 Cliente.erroServidor();
             }
         }
+    }
+    
+    public void fecharSocket() {
+        try {
+            System.out.println("Fechou fechou fechou o socket");
+            socket.close();
+        } catch (IOException ex) {
+            Cliente.erroServidor();
+        }
+         
     }
     
     public static InetAddress getLocalHostLANAddress() throws UnknownHostException {

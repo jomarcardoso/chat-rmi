@@ -8,6 +8,7 @@ import br.com.jomar.chat.common.Leitor;
 import br.com.jomar.chat.common.Noticia;
 import br.com.jomar.chat.common.Topico;
 import br.com.jomar.chat.common.Usuario;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,8 +66,12 @@ public class ClienteLeitor extends Cliente implements IClienteLeitor {
     }
 
     @Override
-    public void abrirSocket() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void abrirSocket() throws IOException {
+
+            server = new LeitorServer(this);
+        
+        Thread threadSocket = new Thread(server);
+        threadSocket.start();
     }
 
 }

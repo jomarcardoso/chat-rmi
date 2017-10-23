@@ -10,6 +10,7 @@ import br.com.jomar.chat.client.leitor.util.LeitorServer;
 import br.com.jomar.chat.common.IMensagem;
 import br.com.jomar.chat.common.IService;
 import br.com.jomar.chat.common.Noticia;
+import br.com.jomar.chat.common.Ping;
 import br.com.jomar.chat.common.Topico;
 import br.com.jomar.chat.common.Usuario;
 import java.io.IOException;
@@ -40,16 +41,23 @@ public abstract class Cliente implements ICliente {
         try {
             usuario.setNome(nome);
             if(service.login(usuario)) {
-                abrirSocket();
-                JOptionPane.showMessageDialog(new JFrame(), "Login realizado com sucesso", "Login", JOptionPane.INFORMATION_MESSAGE);
-                return true;
-            } else {
-                JOptionPane.showMessageDialog(new JFrame(), "Login falhou, nome repetido", "Login", JOptionPane.ERROR_MESSAGE);
+                try {
+                    abrirSocket();
+                    JOptionPane.showMessageDialog(new JFrame(), "Cadastrado com sucesso", "Login", JOptionPane.INFORMATION_MESSAGE);
+                    //server.fecharSocket();
+                    return true;
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Não foi possivel abrir o servidor socket", "Login", JOptionPane.ERROR_MESSAGE);
+                }               
+                
+            } else {                
+                JOptionPane.showMessageDialog(new JFrame(), "Bem vindo", "Login", JOptionPane.INFORMATION_MESSAGE);
                 return false;
             }} catch (RemoteException ex) {
             erroServidor();
             return false;
         }
+        return false;
     }    
     
     @Override
@@ -62,14 +70,18 @@ public abstract class Cliente implements ICliente {
         return null;
     }
     
+    /**
+     *
+     * @param mensagem
+     */
     @Override
     public void lerMensagem(IMensagem mensagem) {
         if(Topico.class.isInstance(mensagem)) {
             Topico topico = (Topico) mensagem;
-            System.out.println(topico.getNome());
+            //System.out.println(topico.getNome());
         } else if(Noticia.class.isInstance(mensagem)) {
-            Noticia noticia = (Noticia) mensagem;
-            System.out.println(noticia.getTexto());
+            Noticia noticia = (Noticia) mensagem;            
+            JOptionPane.showMessageDialog(new JFrame(), noticia.getTexto(), noticia.getTitulo(), JOptionPane.NO_OPTION);
         }
     }
     
@@ -93,5 +105,9 @@ public abstract class Cliente implements ICliente {
         this.usuario = usuario;
     }    
 
-    public  abstract void abrirSocket();
+    public  abstract void abrirSocket() throws IOException ;
+    
+    public ClienteServer getServer() {
+        return this.server;
+    }
 }

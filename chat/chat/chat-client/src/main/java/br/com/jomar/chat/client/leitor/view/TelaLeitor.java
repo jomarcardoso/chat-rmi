@@ -17,8 +17,12 @@ import br.com.jomar.chat.client.leitor.util.LeitorServer;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -106,6 +110,13 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
 
                 if (leitorClient.login(nome)) {
                     TelaPrincipalLeitor tela = new TelaPrincipalLeitor(false, (ClienteLeitor) this.cliente);
+                    //ela.addWindowListener(exitListener); 
+                    tela.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosing(WindowEvent evt) {
+                            //cliente.getServer().fecharSocket();
+                        }
+                    });
                     tela.setVisible(true);
                     dispose();
                 }
@@ -116,7 +127,30 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
 
         } else if (botaoOrigem.getActionCommand().equals("B2")) {
             TelaPrincipalLeitor tela = new TelaPrincipalLeitor(true, (ClienteLeitor) this.cliente);
+                        tela.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosing(WindowEvent evt) {
+                            //cliente.getServer().fecharSocket();
+                        }
+                    });
             tela.setVisible(true);
         }
     }
+    
+    
+//    WindowListener exitListener = new WindowAdapter() {
+//
+//        @Override
+//        public void windowClosing(WindowEvent e) {
+//            int confirm = JOptionPane.showOptionDialog(
+//                 null, "Are You Sure to Close Application?", 
+//                 "Exit Confirmation", JOptionPane.YES_NO_OPTION, 
+//                 JOptionPane.QUESTION_MESSAGE, null, null, null);
+//            if (confirm == 0) {
+//                cliente.getServer().fecharSocket();
+//               System.exit(0);
+//            }
+//        }
+//    };
+   
 }

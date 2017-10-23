@@ -1,5 +1,6 @@
 package br.com.jomar.chat.client.escritor.util;
 
+import br.com.jomar.chat.client.Cliente;
 import br.com.jomar.chat.client.leitor.util.*;
 import br.com.jomar.chat.client.ClienteServer;
 import java.io.IOException;
@@ -18,7 +19,7 @@ class EscritorServer extends ClienteServer implements Runnable {
         super(port);
     }
 
-    public EscritorServer(ClienteLeitor cliente) throws IOException {
+    public EscritorServer(ClienteEscritor cliente) throws IOException {
         super(cliente);        
     }   
     

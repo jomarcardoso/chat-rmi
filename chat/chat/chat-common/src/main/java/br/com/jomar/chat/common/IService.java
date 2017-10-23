@@ -5,6 +5,7 @@
  */
 package br.com.jomar.chat.common;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
