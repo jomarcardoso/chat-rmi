@@ -5,13 +5,20 @@
  */
 package br.com.jomar.chat.client.leitor.view;
 
+import br.com.jomar.chat.client.Cliente;
 import br.com.jomar.chat.common.IServiceLeitor;
+import br.com.jomar.chat.common.Leitor;
+import br.com.jomar.chat.common.RmiClient;
 import br.com.jomar.chat.client.TelaPadrao;
+import br.com.jomar.chat.client.leitor.util.ClienteLeitor;
+import br.com.jomar.chat.client.leitor.util.IClienteLeitor;
+import br.com.jomar.chat.client.leitor.util.LeitorServer;
+
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -19,36 +26,64 @@ import javax.swing.JTextField;
  * @author jomar.cardoso
  */
 public class TelaLeitor extends TelaPadrao implements ActionListener {
-	
-    private JTextField campoOrigem;
-    private JTextField campoDestino;
 
-    public TelaLeitor() {
+    private JTextField campoLogin;
+    private JTextField campoSenha;
+   
 
-        setTitle( "Interface Exemplo" );
+    public TelaLeitor(ClienteLeitor cliente) {
+        
+        super(cliente);               
+
+        setTitle("Login Leitor");
 
         Container container = getContentPane();
 
-        // Adicionando Botões e Ações
-        JButton btn = new JButton( "Ação #1" );
-        btn.setBounds( 425, 280, 120, 25 );
-        container.add( btn );
-        btn.setActionCommand( "B1" );
+        JButton btn = new JButton("Login");
+        btn.setBounds(167, 200, 88, 25);
+        container.add(btn);
+        btn.setActionCommand("B1");
 
-        btn.addActionListener( this );
+        btn.addActionListener(this);
 
-        btn = new JButton( "Ação #2" );
-        btn.setBounds( 550, 280, 120, 25 );
-        container.add( btn );
-        btn.setActionCommand( "B2" );
+        btn = new JButton("Acessar Anônimo");
+        btn.setBounds(265, 200, 150, 25);
+        container.add(btn);
+        btn.setActionCommand("B2");
 
-        btn.addActionListener( this );
+        JButton btnNewButton = new JButton("Cadastrar");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
-        JTextField campoOrigem = criaCampoTexto( "Origem", 30, 400 );
-        saltaLinha();
-        campoDestino = criaCampoTexto( "Destino", 30, 400 );
+                try {
+                    IServiceLeitor service = new RmiClient<IServiceLeitor>().getService();
 
-        setVisible( true );
+                    final String ip = LeitorServer.getLocalHostLANAddress().getHostAddress();
+                    final int port = 12399;
+
+                    String nome = campoLogin.getText();
+                    String senha = campoSenha.getText();
+                    Leitor leitor = new Leitor(ip, port);
+                    ClienteLeitor leitorClient = new ClienteLeitor(service, leitor);
+
+                    leitorClient.login(nome);
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+        });
+        btnNewButton.setBounds(47, 201, 110, 23);
+        getContentPane().add(btnNewButton);
+
+        btn.addActionListener(this);
+
+        campoLogin = criaCampoTexto("Login", 80, 200);
+//        saltaLinha();
+//        campoSenha = criaCampoTexto("Senha", 80, 200);
+
+        setVisible(true);
     }
 
     @Override
@@ -56,18 +91,32 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
 
         JButton botaoOrigem = (JButton) evento.getSource();
 
-        if( botaoOrigem.getActionCommand().equals( "B1" ) ) {
+        if (botaoOrigem.getActionCommand().equals("B1")) {
 
-                String texto = campoOrigem.getText();
-                texto = texto.toUpperCase();
-                campoDestino.setText( texto );
-        } else if( botaoOrigem.getActionCommand().equals( "B2" ) ) {
-                JOptionPane.showMessageDialog( this, "Muito bem! Você conseguiu pressionar o botão!" );
-        }	
-    }
+            try {
+                IServiceLeitor service = new RmiClient<IServiceLeitor>().getService();
 
-     //main será removido, está aqui apenas para testes
-    public static void main(String[] args) {		
-        new TelaLeitor();
+                final String ip = LeitorServer.getLocalHostLANAddress().getHostAddress();
+                final int port = 12399;
+
+                String nome = campoLogin.getText();
+                //String senha = campoSenha.getText();
+                Leitor leitor = new Leitor(ip, port);
+                ClienteLeitor leitorClient = new ClienteLeitor(service, leitor);
+
+                if (leitorClient.login(nome)) {
+                    TelaPrincipalLeitor tela = new TelaPrincipalLeitor(false, (ClienteLeitor) this.cliente);
+                    tela.setVisible(true);
+                    dispose();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else if (botaoOrigem.getActionCommand().equals("B2")) {
+            TelaPrincipalLeitor tela = new TelaPrincipalLeitor(true, (ClienteLeitor) this.cliente);
+            tela.setVisible(true);
+        }
     }
 }

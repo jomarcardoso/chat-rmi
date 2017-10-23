@@ -21,7 +21,7 @@ public interface IClienteLeitor {
     void inscrever(Leitor leitor, Topico topico);
 
     Noticia buscaUltimaNoticia(Topico topico);
-
-    ArrayList<Noticia> buscaNoticiasIntervalo(Topico topico);    
+    
+    public ArrayList<Noticia> buscaNoticiasIntervaloData(Topico topico, Date inicio, Date fim);
     
 }

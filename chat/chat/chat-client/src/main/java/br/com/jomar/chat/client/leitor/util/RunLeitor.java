@@ -6,6 +6,7 @@
 package br.com.jomar.chat.client.leitor.util;
 
 import br.com.jomar.chat.client.ClienteServer;
+import br.com.jomar.chat.client.leitor.view.TelaLeitor;
 import br.com.jomar.chat.common.IServiceLeitor;
 import br.com.jomar.chat.common.Leitor;
 import br.com.jomar.chat.common.RmiClient;
@@ -21,27 +22,21 @@ public class RunLeitor {
     
     public static void main(String[] args) throws RemoteException, IOException, NotBoundException {
 
+        //RMI
         IServiceLeitor service = new RmiClient<IServiceLeitor>().getService();
         
+        //Cliente
         final String ip = LeitorServer.getLocalHostLANAddress().getHostAddress();
         final int port = 12399;        
         final String name = "Jorge";
         Leitor leitor = new Leitor(ip, port);
         ClienteLeitor leitorClient = new ClienteLeitor(service, leitor);
 
-        
+        //Socket
         //final LeitorServer server = new LeitorServer(port);
-        final ClienteServer server = new LeitorServer(leitorClient);
-        Thread threadSocket = new Thread(server);
-        threadSocket.start();
-        System.out.println("Porta " + port + " aberta!");
-
+  
         
-        
-        leitorClient.login(name);
-        //System.out.println(status);
-        
-        leitorClient.inscrever(leitor, leitorClient.buscaTopicos().get(0));
+        new TelaLeitor(leitorClient);
         
     }
     

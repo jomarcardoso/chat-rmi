@@ -10,6 +10,7 @@ import br.com.jomar.chat.common.Topico;
 import br.com.jomar.chat.common.Usuario;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -54,14 +55,18 @@ public class ClienteLeitor extends Cliente implements IClienteLeitor {
     }
 
     @Override
-    public ArrayList<Noticia> buscaNoticiasIntervalo(Topico topico) {
+    public ArrayList<Noticia> buscaNoticiasIntervaloData(Topico topico, Date inicio, Date fim) {
         try {
-            return this.getService().buscaNoticiasIntervalo(topico);
+            return this.getService().buscaNoticiasIntervalo(topico, inicio, fim);
         } catch (RemoteException ex) {
             erroServidor();
         }
         return null;
     }
 
+    @Override
+    public void abrirSocket() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

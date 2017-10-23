@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 interface ICliente {
     
-    public void login(String nome);
+    public Boolean login(String nome);
     
     public ArrayList<Topico> buscaTopicos();
     

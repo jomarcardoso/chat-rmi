@@ -95,8 +95,8 @@ public class Servidor implements IServidor {
     }
 
     @Override
-    public ArrayList<Noticia> buscaNoticiasIntervalo(Topico topico) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Noticia> buscaNoticiasIntervalo(Topico topico, Date inicio, Date fim) throws RemoteException {
+        return Repositorio.getInstance().getNoticias();
     }
 
     @Override
@@ -119,5 +119,10 @@ public class Servidor implements IServidor {
         }
         
         return true;
+    }
+
+    @Override
+    public ArrayList<Noticia> buscaTodasNoticias() throws RemoteException {
+        return Repositorio.getInstance().getNoticias();
     }
 }

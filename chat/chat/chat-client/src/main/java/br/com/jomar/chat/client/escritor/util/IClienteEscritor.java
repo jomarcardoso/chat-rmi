@@ -16,7 +16,9 @@ import java.util.ArrayList;
  */
 public interface IClienteEscritor {
     
-    public void criarTopico(String nome) throws RemoteException;    
+    public void criarTopico(String nome) throws RemoteException; 
+    
+    public ArrayList<Noticia> buscaTodasNoticias();
     
     public void criarNoticia(Topico topico, String texto, String titulo) throws RemoteException;    
     

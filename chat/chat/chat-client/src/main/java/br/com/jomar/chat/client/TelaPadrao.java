@@ -5,6 +5,7 @@
  */
 package br.com.jomar.chat.client;
 
+import br.com.jomar.chat.client.leitor.util.IClienteLeitor;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -16,6 +17,7 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -24,146 +26,180 @@ import javax.swing.JTextField;
  */
 public abstract class TelaPadrao extends JFrame implements WindowListener {
 
-	private int nrLinha = 70;
-	private JLabel lbl;
-	
-	public TelaPadrao() {
+    private int nrLinha = 70;
+    private JLabel lbl;
+    protected Cliente cliente;
 
-		super.setBounds( 100, 100, 700, 350 );
-		
-		setLayout( null );
-		lbl = new JLabel( "CHAT RMI" ); 
-		// 2) Posicionar o elemento na tela
-		lbl.setBounds( 0, 0, 700, 30 );
-		// 3) Adicionar ao container
-		getContentPane().add( lbl );		
+    public TelaPadrao(Cliente cliente) {
+        this.cliente = cliente;
+        
+        super.setBounds(100, 100, 500, 350);
 
-		Color cor1 = new Color( 235, 99, 71 );
+        setLayout(null);
+//		lbl = new JLabel( "CHAT RMI" ); 
+        // 2) Posicionar o elemento na tela
+//		lbl.setBounds( 0, 0, 500, 30 );
+        // 3) Adicionar ao container
+//		getContentPane().add( lbl );		
 
-		lbl.setForeground( Color.BLUE );
-		lbl.setOpaque( true );
-		lbl.setHorizontalAlignment( JLabel.CENTER );
-		lbl.setBackground( cor1 );
-		
-		Font tpLetra = new Font( "Bangla MN", Font.PLAIN, 16 );
-		lbl.setFont( tpLetra );
+//		Color cor1 = new Color( 235, 99, 71 );
+//
+//		lbl.setForeground( Color.BLUE );
+//		lbl.setOpaque( true );
+//		lbl.setHorizontalAlignment( JLabel.CENTER );
+//		lbl.setBackground( cor1 );
+//		
+//		Font tpLetra = new Font( "Bangla MN", Font.PLAIN, 16 );
+//		lbl.setFont( tpLetra );
+        addWindowListener(this);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    }
 
-		addWindowListener( this );
-		setDefaultCloseOperation( DO_NOTHING_ON_CLOSE );
-	}
-	
-	@Override
-	public void setBounds( int x, int y, int width, int height ) {
-		super.setBounds(x, y, width, height);
-		
-		if( lbl != null ) {
-			lbl.setBounds( 0, 0, width, 30 );
-		}
-	}
-	
-	public JTextField criaCampoTexto( String txtLabel, int x, int largura ) {
-		
-		JLabel lbl1 = new JLabel( txtLabel );
-		lbl1.setBounds( x, nrLinha, 150, 23 );
-		getContentPane().add( lbl1 );
-		
-		JTextField tf = new JTextField();
-		tf.setBounds( x + 90, nrLinha, largura, 23 );
-		getContentPane().add( tf );
-		
-		return tf;
-	}
-	
-	public JTextField criaCampoNumerico( String txtLabel, int x, int largura ) {
-		
-		JLabel lbl1 = new JLabel( txtLabel );
-		lbl1.setBounds( x, nrLinha, 150, 23 );
-		getContentPane().add( lbl1 );
-		
-		JTextField tf = new JTextField();
-		tf.setBounds( x + 90, nrLinha, largura, 23 );
-		getContentPane().add( tf );
-		
-		tf.addKeyListener( new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {
-				
-				char ch = e.getKeyChar();
-				
-				if( !Character.isDigit( ch ) ) {
-					e.consume();
-				}
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				
-				if( e.getKeyCode() == KeyEvent.VK_F1 ) {
-					System.out.println( "Soltei o F1");
-				}
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				
-			}
-		});
-		
-		return tf;
-	}
-	
-	public void saltaLinha() {
-		nrLinha += 27;
-	}
+    @Override
+    public void setBounds(int x, int y, int width, int height) {
+        super.setBounds(x, y, width, height);
 
-	@Override
-	public void windowOpened(WindowEvent e) {}
+        if (lbl != null) {
+            lbl.setBounds(0, 0, width, 30);
+        }
+    }
 
-	@Override
-	public void windowClosing(WindowEvent e) {
-		
-		if( JOptionPane.showConfirmDialog( this, 
-				"Tem certeza que quer sair do programa?",
-				"Confirme",
-				JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE ) == JOptionPane.YES_OPTION ) {
-			dispose();
-		}
-	}
-	
-	private class MeuMouseListener implements MouseListener {
+    public JTextField criaCampoSenha(String txtLabel, int x, int largura) {
 
-		@Override
-		public void mouseClicked(MouseEvent e) {
-		}
+        JLabel lbl1 = new JLabel(txtLabel);
+        lbl1.setBounds(x, nrLinha, 150, 23);
+        getContentPane().add(lbl1);
 
-		@Override
-		public void mousePressed(MouseEvent e) {}
+        JPasswordField tf = new JPasswordField();
+        tf.setBounds(x + 90, nrLinha, largura, 23);
+        getContentPane().add(tf);
 
-		@Override
-		public void mouseReleased(MouseEvent e) {}
+        return tf;
+    }
 
-		@Override
-		public void mouseEntered(MouseEvent e) {}
-		
-		@Override
-		public void mouseExited(MouseEvent e) {}
-		
-	}
+    public JTextField criaCampoTexto(String txtLabel, int x, int largura) {
 
-	@Override
-	public void windowClosed(WindowEvent e) {}
+        JLabel lbl1 = new JLabel(txtLabel);
+        lbl1.setBounds(x, nrLinha, 150, 23);
+        getContentPane().add(lbl1);
 
-	@Override
-	public void windowIconified(WindowEvent e) {}
+        JTextField tf = new JTextField();
+        tf.setBounds(x + 90, nrLinha, largura, 23);
+        getContentPane().add(tf);
 
-	@Override
-	public void windowDeiconified(WindowEvent e) {}
+        return tf;
+    }
 
-	@Override
-	public void windowActivated(WindowEvent e) {}
+    public JTextField criaCampoNumerico(String txtLabel, int x, int largura) {
 
-	@Override
-	public void windowDeactivated(WindowEvent e) {}
+        JLabel lbl1 = new JLabel(txtLabel);
+        lbl1.setBounds(x, nrLinha, 150, 23);
+        getContentPane().add(lbl1);
+
+        JTextField tf = new JTextField();
+        tf.setBounds(x + 90, nrLinha, largura, 23);
+        getContentPane().add(tf);
+
+        tf.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+                char ch = e.getKeyChar();
+
+                if (!Character.isDigit(ch)) {
+                    e.consume();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+                if (e.getKeyCode() == KeyEvent.VK_F1) {
+                    System.out.println("Soltei o F1");
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+        });
+
+        return tf;
+    }
+
+    public void saltaLinha() {
+        nrLinha += 27;
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+
+        if (JOptionPane.showConfirmDialog(this,
+                "Tem certeza que quer sair do programa?",
+                "Confirme",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            dispose();
+        }
+    }
+
+    private class MeuMouseListener implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
+    
 }

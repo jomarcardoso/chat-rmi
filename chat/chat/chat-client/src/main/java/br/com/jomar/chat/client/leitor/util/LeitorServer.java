@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 /**
  * @author Jomar
  */
-class LeitorServer extends ClienteServer implements Runnable {
+public class LeitorServer extends ClienteServer implements Runnable {
     
      public LeitorServer() throws IOException {
         super();

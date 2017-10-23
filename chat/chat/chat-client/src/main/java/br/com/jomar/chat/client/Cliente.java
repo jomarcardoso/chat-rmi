@@ -5,13 +5,18 @@
  */
 package br.com.jomar.chat.client;
 
+import br.com.jomar.chat.client.leitor.util.ClienteLeitor;
+import br.com.jomar.chat.client.leitor.util.LeitorServer;
 import br.com.jomar.chat.common.IMensagem;
 import br.com.jomar.chat.common.IService;
 import br.com.jomar.chat.common.Noticia;
 import br.com.jomar.chat.common.Topico;
 import br.com.jomar.chat.common.Usuario;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -23,6 +28,7 @@ public abstract class Cliente implements ICliente {
     
     protected IService service;
     protected Usuario usuario;
+    protected ClienteServer server;
     
     public Cliente(IService service, Usuario usuario) {
         this.service = service;
@@ -30,16 +36,19 @@ public abstract class Cliente implements ICliente {
     }
     
     @Override
-    public void login(String nome) {
+    public Boolean login(String nome) {
         try {
             usuario.setNome(nome);
             if(service.login(usuario)) {
-                //return "Login realizado com sucesso";
+                abrirSocket();
                 JOptionPane.showMessageDialog(new JFrame(), "Login realizado com sucesso", "Login", JOptionPane.INFORMATION_MESSAGE);
+                return true;
             } else {
                 JOptionPane.showMessageDialog(new JFrame(), "Login falhou, nome repetido", "Login", JOptionPane.ERROR_MESSAGE);
+                return false;
             }} catch (RemoteException ex) {
             erroServidor();
+            return false;
         }
     }    
     
@@ -83,4 +92,6 @@ public abstract class Cliente implements ICliente {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }    
+
+    public  abstract void abrirSocket();
 }

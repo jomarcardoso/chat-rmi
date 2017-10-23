@@ -17,6 +17,7 @@ public interface IServiceEscritor extends IService {
     public Boolean criarTopico(Topico topico) throws RemoteException;    
     
     public Boolean criarNoticia(Noticia noticia) throws RemoteException;    
-       
+    
+    public ArrayList<Noticia> buscaTodasNoticias() throws RemoteException;       
     
 }
