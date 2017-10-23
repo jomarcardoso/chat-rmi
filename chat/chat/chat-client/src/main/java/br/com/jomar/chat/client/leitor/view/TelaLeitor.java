@@ -33,11 +33,10 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
 
     private JTextField campoLogin;
     private JTextField campoSenha;
-   
 
     public TelaLeitor(ClienteLeitor cliente) {
-        
-        super(cliente);               
+
+        super(cliente);
 
         setTitle("Login Leitor");
 
@@ -110,7 +109,7 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
 
                 if (leitorClient.login(nome)) {
                     TelaPrincipalLeitor tela = new TelaPrincipalLeitor(false, (ClienteLeitor) this.cliente);
-                    //ela.addWindowListener(exitListener); 
+                    //tela.addWindowListener(exitListener); 
                     tela.addWindowListener(new WindowAdapter() {
                         @Override
                         public void windowClosing(WindowEvent evt) {
@@ -127,17 +126,16 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
 
         } else if (botaoOrigem.getActionCommand().equals("B2")) {
             TelaPrincipalLeitor tela = new TelaPrincipalLeitor(true, (ClienteLeitor) this.cliente);
-                        tela.addWindowListener(new WindowAdapter() {
-                        @Override
-                        public void windowClosing(WindowEvent evt) {
-                            //cliente.getServer().fecharSocket();
-                        }
-                    });
+            tela.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent evt) {
+                    //cliente.getServer().fecharSocket();
+                }
+            });
             tela.setVisible(true);
         }
     }
-    
-    
+
 //    WindowListener exitListener = new WindowAdapter() {
 //
 //        @Override
@@ -152,5 +150,4 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
 //            }
 //        }
 //    };
-   
 }

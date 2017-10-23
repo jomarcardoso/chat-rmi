@@ -24,4 +24,5 @@ public interface IClienteLeitor {
     
     public ArrayList<Noticia> buscaNoticiasIntervaloData(Topico topico, Date inicio, Date fim);
     
+    public ArrayList<Noticia> buscaNoticiasTopico(Topico topico);    
 }

@@ -50,12 +50,7 @@ public class TelaVisualizarNoticia extends JInternalFrame {
         comboBox = new JComboBox();
         comboBox.setBounds(28, 39, 211, 20);
 
-        //IServiceEscritor service;
         try {
-            //service = new RmiClient<IServiceEscritor>().getService();
-            //Escritor escritor = new Escritor();
-            //ClienteEscritor escritorClient = new ClienteEscritor(service, escritor);
-
             for (Topico topico : cliente.buscaTopicos()) {
                 comboBox.addItem(topico.getNome());
             }
@@ -91,28 +86,14 @@ public class TelaVisualizarNoticia extends JInternalFrame {
 
                 try {
 
-                    IServiceLeitor service = new RmiClient<IServiceLeitor>().getService();
-                    final String ip = LeitorServer.getLocalHostLANAddress().getHostAddress();
-                    final int port = 12399;
-//		            final LeitorServer server = new LeitorServer(port);
-//		            Thread threadSocket = new Thread(server);
-//		            threadSocket.start();
-
-                    System.out.println("Porta " + port + " aberta!");
-
-                    Leitor leitor = new Leitor(ip, port);
-                    ClienteLeitor leitorClient = new ClienteLeitor(service, leitor);
-
                     Topico topicoSelecionado = null;
-                    for (Topico topico : leitorClient.buscaTopicos()) {
+                    for (Topico topico : cliente.buscaTopicos()) {
                         if (topico.getNome().equals(comboBox.getSelectedItem())) {
                             topicoSelecionado = topico;
                         }
                     }
-
-//		            leitorClient.buscaNoticiasIntervalo(topico)
-                    Noticia noticia = leitorClient.buscaUltimaNoticia(topicoSelecionado);
-                    String noticiaParaTexto = noticia.getTopico().getNome() + "\n-\n" + noticia.getTitulo() + "\n--\n" + noticia.getTexto() + "\n\n----------\n\n";
+                    Noticia noticia = cliente.buscaUltimaNoticia(topicoSelecionado);
+                    String noticiaParaTexto = noticia.getTopico().getNome() + "\n-\n" + noticia.getEscritor().getNome() + ": " + noticia.getTitulo() + "\n--\n" + noticia.getTexto() + "\n\n----------\n\n";
                     txtTexto.setText(noticiaParaTexto);
 
                 } catch (Exception ex) {
@@ -136,9 +117,9 @@ public class TelaVisualizarNoticia extends JInternalFrame {
                             topicoSelecionado = topico;
                         }
                     }
-                    ArrayList<Noticia> noticias = new ArrayList<>();
-                    Noticia noticia = cliente.buscaUltimaNoticia(topicoSelecionado);
-                    noticias.add(noticia);
+                    ArrayList<Noticia> noticias = cliente.buscaNoticiasTopico(topicoSelecionado);
+                    //Noticia noticia = 
+                    //noticias.add(noticia);
                     String noticiaParaTexto = buscaNoticiaFormatada(noticias);
                     txtTexto.setText(noticiaParaTexto);
 
@@ -164,14 +145,6 @@ public class TelaVisualizarNoticia extends JInternalFrame {
             public void actionPerformed(ActionEvent arg0) {
 
                 try {
-
-                    //IServiceLeitor service = new RmiClient<IServiceLeitor>().getService();
-                    final String ip = LeitorServer.getLocalHostLANAddress().getHostAddress();
-                    final int port = 12399;
-
-                    //Leitor leitor = new Leitor(ip, port);
-                    //ClienteLeitor leitorClient = new ClienteLeitor(service, leitor);
-
                     Topico topicoSelecionado = null;
                     for (Topico topico : cliente.buscaTopicos()) {
                         if (topico.getNome().equals(comboBox.getSelectedItem())) {
@@ -198,25 +171,9 @@ public class TelaVisualizarNoticia extends JInternalFrame {
 
         String noticiaFormatada = "";
         for (Noticia noticia : noticias) {
-            noticiaFormatada += noticia.getData().toString() + " - " + noticia.getTitulo() + "\n--\n" + noticia.getTexto() + "\n\n----------\n\n";
+            noticiaFormatada += noticia.getData().toString() + " - " + noticia.getEscritor().getNome() + ": " + noticia.getTitulo() + "\n--\n" + noticia.getTexto() + "\n\n----------\n\n";
         }
 
         return noticiaFormatada;
     }
-
-    //	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					TelaVisualizarNoticia frame = new TelaVisualizarNoticia( null );
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 }

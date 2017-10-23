@@ -12,12 +12,13 @@ public class Noticia implements Serializable, IMensagem {
     private String titulo;
     private Topico topico;
     private Date data;
+    private Escritor escritor;
 
-    public Noticia(String texto, String titulo, Topico topico, Date data) {
+    public Noticia(Escritor escritor, String texto, String titulo, Topico topico) {
+        this.escritor = escritor;
         this.texto = texto;
         this.titulo = titulo;
         this.topico = topico;
-        this.data = data;
     }
 
     public String getTexto() {
@@ -51,5 +52,13 @@ public class Noticia implements Serializable, IMensagem {
     public void setData(Date data) {
         this.data = data;
     }
+
+    public Escritor getEscritor() {
+        return escritor;
+    }
+
+    public void setEscritor(Escritor escritor) {
+        this.escritor = escritor;
+    }    
 
 }

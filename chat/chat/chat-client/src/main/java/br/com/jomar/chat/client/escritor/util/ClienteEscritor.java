@@ -3,6 +3,7 @@ package br.com.jomar.chat.client.escritor.util;
 import br.com.jomar.chat.client.Cliente;
 import br.com.jomar.chat.client.leitor.util.ClienteLeitor;
 import br.com.jomar.chat.client.leitor.util.LeitorServer;
+import br.com.jomar.chat.common.Escritor;
 import br.com.jomar.chat.common.IServiceEscritor;
 import br.com.jomar.chat.common.Noticia;
 import br.com.jomar.chat.common.Topico;
@@ -43,7 +44,7 @@ public class ClienteEscritor extends Cliente implements IClienteEscritor {
 
     @Override
     public void criarNoticia(Topico topico, String texto, String titulo) {
-        Noticia noticia = new Noticia(texto, titulo, topico, getPegaDataAtual());
+        Noticia noticia = new Noticia((Escritor) usuario, texto, titulo, topico);
         try {
             this.getService().criarNoticia(noticia);
             JOptionPane.showMessageDialog(new JFrame(), "Noticia criada com sucesso", "Noticia", JOptionPane.INFORMATION_MESSAGE);
@@ -66,13 +67,6 @@ public class ClienteEscritor extends Cliente implements IClienteEscritor {
     @Override
     public IServiceEscritor getService() {
         return (IServiceEscritor) this.service;
-    }
-
-    public Date getPegaDataAtual() {
-        Calendar calendar = new GregorianCalendar();
-        Date date = new Date();
-        calendar.setTime(date);
-        return calendar.getTime();
     }
 
     @Override

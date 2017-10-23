@@ -74,4 +74,14 @@ public class ClienteLeitor extends Cliente implements IClienteLeitor {
         threadSocket.start();
     }
 
+    @Override
+    public ArrayList<Noticia> buscaNoticiasTopico(Topico topico) {
+        try {
+            return this.getService().buscaNoticiasTopico(topico);
+        } catch (RemoteException ex) {
+            erroServidor();
+        }
+        return null;
+    }
+
 }

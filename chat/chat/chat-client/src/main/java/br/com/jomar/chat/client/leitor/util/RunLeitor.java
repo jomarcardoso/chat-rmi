@@ -22,7 +22,7 @@ public class RunLeitor {
     
     public static void main(String[] args) throws RemoteException, IOException, NotBoundException {
 
-        //RMI
+        // RMI
         IServiceLeitor service = new RmiClient<IServiceLeitor>().getService();
         
         //Cliente
@@ -31,11 +31,8 @@ public class RunLeitor {
         final String name = "Jorge";
         Leitor leitor = new Leitor(ip, port);
         ClienteLeitor leitorClient = new ClienteLeitor(service, leitor);
-
-        //Socket
-        //final LeitorServer server = new LeitorServer(port);
-  
         
+        // telas
         new TelaLeitor(leitorClient);
         
     }

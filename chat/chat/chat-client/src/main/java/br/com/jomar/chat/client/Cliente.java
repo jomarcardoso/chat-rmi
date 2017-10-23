@@ -81,7 +81,7 @@ public abstract class Cliente implements ICliente {
             //System.out.println(topico.getNome());
         } else if(Noticia.class.isInstance(mensagem)) {
             Noticia noticia = (Noticia) mensagem;            
-            JOptionPane.showMessageDialog(new JFrame(), noticia.getTexto(), noticia.getTitulo(), JOptionPane.NO_OPTION);
+            JOptionPane.showMessageDialog(new JFrame(), noticia.getTexto(), noticia.getEscritor().getNome() + ": "+noticia.getTitulo(), JOptionPane.NO_OPTION);
         }
     }
     

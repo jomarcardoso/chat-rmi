@@ -59,12 +59,6 @@ public class ClienteServer extends ServerSocket implements Runnable {
             try {                
                 socket = this.accept();
                 System.out.println("Nova conexão com o cliente " + socket.getInetAddress().getHostAddress());
-//                Scanner s = new Scanner(cliente.getInputStream());
-//                while (s.hasNextLine()) {
-//                   System.out.println(s.nextLine());
-//                }
-//                s.close();   
-                //ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
                 try {
                     IMensagem mensagem = (IMensagem) is.readObject();

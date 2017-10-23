@@ -14,7 +14,9 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +55,7 @@ public class Servidor implements IServidor {
 
     @Override
     public Boolean criarNoticia(Noticia noticia) throws RemoteException {
+        noticia.setData(getPegaDataAtual());
         Repositorio.getInstance().getNoticias().add(noticia);
         for(Inscricao i : Repositorio.getInstance().getInscricoes()) {
             if(noticia.getTopico().getNome().equals(i.getTopico().getNome())) {
@@ -129,5 +132,17 @@ public class Servidor implements IServidor {
             os.writeObject(new Ping());
             os.close();
         }
+    }
+
+    @Override
+    public ArrayList<Noticia> buscaNoticiasTopico(Topico topico) throws RemoteException {
+        return Repositorio.getInstance().getNoticias();
+    }
+    
+    public Date getPegaDataAtual() {
+        Calendar calendar = new GregorianCalendar();
+        Date date = new Date();
+        calendar.setTime(date);
+        return calendar.getTime();
     }
 }
