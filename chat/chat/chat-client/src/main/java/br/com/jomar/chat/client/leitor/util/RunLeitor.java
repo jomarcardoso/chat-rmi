@@ -27,7 +27,6 @@ public class RunLeitor {
         //Cliente
         final String ip = LeitorServer.getLocalHostLANAddress().getHostAddress();
         final int port = 12399;
-        final String name = "Jorge";
         Leitor leitor = new Leitor(ip, port);
         ClienteLeitor leitorClient = new ClienteLeitor(service, leitor);
 

@@ -38,7 +38,7 @@ public class RunClient {
             }
         } else {
             String host = "10.99.5.41";
-            RunEscritor runEscritor = new RunEscritor(host);
+            RunLeitor runLeitor = new RunLeitor(host);
         }        
 
     }

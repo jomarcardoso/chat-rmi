@@ -106,4 +106,14 @@ public abstract class Cliente implements ICliente {
     public ClienteServer getServer() {
         return this.server;
     }
+
+    public boolean login(String nome, String ip) {
+        if (!ip.equals(null) && !ip.equals("")) {
+            usuario.setIp(ip);
+        }
+        if(login(nome)) {
+            return true;
+        }
+        return false;
+    }
 }

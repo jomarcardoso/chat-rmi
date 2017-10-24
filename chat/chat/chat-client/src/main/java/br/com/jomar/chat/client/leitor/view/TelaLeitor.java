@@ -28,7 +28,7 @@ import javax.swing.JTextField;
 public class TelaLeitor extends TelaPadrao implements ActionListener {
 
     private JTextField campoLogin;
-    private JTextField campoSenha;
+    private JTextField campoIp;
 
     public TelaLeitor(ClienteLeitor cliente) {
 
@@ -56,11 +56,9 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
 
                 try {
 
-                    final String ip = LeitorServer.getLocalHostLANAddress().getHostAddress();
-
                     String nome = campoLogin.getText();
-                    String senha = campoSenha.getText();
-                    
+                    String ip = campoIp.getText();
+
                     cliente.login(nome);
 
                 } catch (Exception ex) {
@@ -75,8 +73,8 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
         btn.addActionListener(this);
 
         campoLogin = criaCampoTexto("Login", 80, 200);
-//        saltaLinha();
-        campoSenha = criaCampoTexto("ip", 80, 200);
+        saltaLinha();
+        campoIp = criaCampoTexto("ip", 80, 200);
 
         setVisible(true);
     }
@@ -90,8 +88,9 @@ public class TelaLeitor extends TelaPadrao implements ActionListener {
 
             try {
                 String nome = campoLogin.getText();
+                String ip = campoIp.getText();
 
-                if (cliente.login(nome)) {
+                if (cliente.login(nome, ip)) {
                     TelaPrincipalLeitor tela = new TelaPrincipalLeitor(false, (ClienteLeitor) this.cliente);
                     //tela.addWindowListener(exitListener);
                     tela.addWindowListener(new WindowAdapter() {
