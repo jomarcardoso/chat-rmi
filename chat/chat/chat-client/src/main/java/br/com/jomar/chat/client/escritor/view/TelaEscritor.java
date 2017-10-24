@@ -5,12 +5,6 @@
  */
 package br.com.jomar.chat.client.escritor.view;
 
-import br.com.jomar.chat.client.TelaPadrao;
-import br.com.jomar.chat.client.escritor.util.ClienteEscritor;
-import br.com.jomar.chat.common.Escritor;
-import br.com.jomar.chat.common.IServiceEscritor;
-import br.com.jomar.chat.common.RmiClient;
-
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,87 +14,80 @@ import java.rmi.RemoteException;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+import br.com.jomar.chat.client.TelaPadrao;
+import br.com.jomar.chat.client.escritor.util.ClienteEscritor;
+import br.com.jomar.chat.common.IServiceEscritor;
+import br.com.jomar.chat.common.RmiClient;
+
 /**
  *
  * @author jomar.cardoso
  */
 public class TelaEscritor extends TelaPadrao implements ActionListener {
 
-    private JTextField campoLogin;
-    private JTextField campoSenha;
+	private JTextField campoLogin;
+	private JTextField campoSenha;
 
-    public TelaEscritor(ClienteEscritor cliente) {
-        super(cliente);
+	public TelaEscritor(ClienteEscritor cliente) {
+		super(cliente);
 
-        setTitle("Login Escritor");
+		setTitle("Login Escritor");
 
-        Container container = getContentPane();
+		Container container = getContentPane();
 
-        JButton btn = new JButton("Login");
-        btn.setBounds(120, 200, 120, 25);
-        container.add(btn);
-        btn.setActionCommand("B1");
+		JButton btn = new JButton("Login");
+		btn.setBounds(120, 200, 120, 25);
+		container.add(btn);
+		btn.setActionCommand("B1");
 
-        btn.addActionListener(this);
+		btn.addActionListener(this);
 
-        btn = new JButton("Cadastrar");
-        btn.setBounds(250, 200, 120, 25);
-        container.add(btn);
-        btn.setActionCommand("B2");
+		btn = new JButton("Cadastrar");
+		btn.setBounds(250, 200, 120, 25);
+		container.add(btn);
+		btn.setActionCommand("B2");
 
-        btn.addActionListener(this);
+		btn.addActionListener(this);
 
-        campoLogin = criaCampoTexto("Login", 80, 200);
-        saltaLinha();
-        campoSenha = criaCampoSenha("Senha", 80, 200);
+		campoLogin = criaCampoTexto("Login", 80, 200);
+		saltaLinha();
+		campoSenha = criaCampoSenha("Senha", 80, 200);
 
-        setVisible(true);
-    }
+		setVisible(true);
+	}
 
-    @Override
-    public void actionPerformed(ActionEvent evento) {
+	@Override
+	public void actionPerformed(ActionEvent evento) {
 
-        JButton botaoOrigem = (JButton) evento.getSource();
+		JButton botaoOrigem = (JButton) evento.getSource();
 
-        if (botaoOrigem.getActionCommand().equals("B1")) {
+		if (botaoOrigem.getActionCommand().equals("B1")) {
+			String login = campoLogin.getText();
+			String senha = campoSenha.getText();
 
-            try {
-                IServiceEscritor service;
-                service = new RmiClient<IServiceEscritor>().getService();
+			if (cliente.login(login)) {
+				TelaPrincipalEscritor tela = new TelaPrincipalEscritor((ClienteEscritor) cliente);
+				tela.setVisible(true);
+				dispose();
+			}
+		} else if (botaoOrigem.getActionCommand().equals("B2")) {
 
-                String login = campoLogin.getText();
-                String senha = campoSenha.getText();
-                //Escritor escritor = new Escritor();
-                //ClienteEscritor escritorClient = new ClienteEscritor(service, escritor);
+			try {
+				IServiceEscritor service;
+				service = new RmiClient<IServiceEscritor>().getService();
 
-                if (cliente.login(login)) {
-                    TelaPrincipalEscritor tela = new TelaPrincipalEscritor((ClienteEscritor) cliente);
-                    tela.setVisible(true);
-                    dispose();
-                }
+				String login = campoLogin.getText();
+				//String senha = campoSenha.getText();
+				//Escritor escritor = new Escritor();
+				//ClienteEscritor escritorClient = new ClienteEscritor(service, escritor);
 
-            } catch (RemoteException | NotBoundException e) {
-                e.printStackTrace();
-            }
+				cliente.login(login);
 
-        } else if (botaoOrigem.getActionCommand().equals("B2")) {
+			} catch (RemoteException | NotBoundException e) {
+				e.printStackTrace();
+			}
 
-            try {
-                IServiceEscritor service;
-                service = new RmiClient<IServiceEscritor>().getService();
-
-                String login = campoLogin.getText();
-                //String senha = campoSenha.getText();
-                //Escritor escritor = new Escritor();
-                //ClienteEscritor escritorClient = new ClienteEscritor(service, escritor);
-
-                cliente.login(login);
-
-            } catch (RemoteException | NotBoundException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
+		}
+	}
 
 }
