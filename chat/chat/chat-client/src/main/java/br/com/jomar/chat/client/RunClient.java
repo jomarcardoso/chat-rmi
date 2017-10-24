@@ -14,7 +14,7 @@ public class RunClient {
     public static void main(String[] args) throws RemoteException, IOException, NotBoundException {
 
         //--tipo=leitor||escritor & --host=127.0.0.1
-        System.out.println(args[1]);
+        //System.out.println(args[1]);
         if (args.length > 1) {
             String tipo = null;
             String host = null;
@@ -36,7 +36,12 @@ public class RunClient {
             } else {
                 RunEscritor runEscritor = new RunEscritor(host);
             }
-        }
+        } else {
+            String host = "10.99.5.41";
+            RunEscritor runEscritor = new RunEscritor(host);
+        }        
+
     }
+
 
 }
