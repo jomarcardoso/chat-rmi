@@ -8,18 +8,13 @@ import br.com.jomar.chat.common.Ping;
 import br.com.jomar.chat.common.Topico;
 import br.com.jomar.chat.common.Usuario;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -97,7 +92,8 @@ public class Servidor implements IServidor {
     }
 
     @Override
-    public Boolean login(Usuario usuario) throws RemoteException {        
+    public Boolean login(Usuario usuario) throws RemoteException {       
+        System.out.println("Conected: " + usuario);
         if(Leitor.class.isInstance(usuario)) {
             for (Usuario l : Repositorio.getInstance().getLeitores()) {
                 if (l.getNome().equals(usuario.getNome())) {
@@ -127,6 +123,7 @@ public class Servidor implements IServidor {
     }
 
     private void ping(Usuario usuario) throws IOException {
+        
         try (Socket socket = new Socket(usuario.getIp(), usuario.getPorta())) {
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
             os.writeObject(new Ping());

@@ -19,22 +19,24 @@ import java.rmi.RemoteException;
  * @author jomar.cardoso
  */
 public class RunLeitor {
-    
-    public static void main(String[] args) throws RemoteException, IOException, NotBoundException {
 
+    public RunLeitor(String host) throws RemoteException, IOException, NotBoundException {
         // RMI
-        IServiceLeitor service = new RmiClient<IServiceLeitor>().getService();
-        
+        IServiceLeitor service = new RmiClient<IServiceLeitor>().getService(host);
+
         //Cliente
         final String ip = LeitorServer.getLocalHostLANAddress().getHostAddress();
-        final int port = 12399;        
+        final int port = 12399;
         final String name = "Jorge";
         Leitor leitor = new Leitor(ip, port);
         ClienteLeitor leitorClient = new ClienteLeitor(service, leitor);
-        
+
         // telas
         new TelaLeitor(leitorClient);
-        
     }
-    
+
+    public static void main(String[] args) throws RemoteException, IOException, NotBoundException {
+        new RunLeitor(null);
+    }
+
 }

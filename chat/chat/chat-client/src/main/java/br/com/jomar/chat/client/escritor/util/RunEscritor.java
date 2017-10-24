@@ -9,31 +9,32 @@ import br.com.jomar.chat.client.escritor.view.TelaEscritor;
 import br.com.jomar.chat.common.Escritor;
 import br.com.jomar.chat.common.IServiceEscritor;
 import br.com.jomar.chat.common.RmiClient;
-import br.com.jomar.chat.common.Topico;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 /**
  *
  * @author jomar.cardoso
  */
 public class RunEscritor {
-    
-    public static void main(String[] args) throws RemoteException, NotBoundException {
-        
+
+    public RunEscritor(final String host) throws RemoteException, NotBoundException {
+
         // RMI
-        IServiceEscritor service = new RmiClient<IServiceEscritor>().getService();
-        
+        IServiceEscritor service = new RmiClient<IServiceEscritor>().getService(host);
+
         // Cliente
         final String ip = EscritorServer.getLocalHostLANAddress().getHostAddress();
-        final int port = 12499;   
+        final int port = 12499;
         String name = "Jil";
-        Escritor escritor = new Escritor("", port);    
+        Escritor escritor = new Escritor("", port);
         ClienteEscritor escritorClient = new ClienteEscritor(service, escritor);
 
         // telas
         new TelaEscritor(escritorClient);
     }
-    
+
+    public static void main(String[] args) throws NotBoundException, RemoteException {
+        new RunEscritor(null);
+    }
 }

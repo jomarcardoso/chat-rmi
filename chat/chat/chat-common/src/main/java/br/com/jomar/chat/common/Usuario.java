@@ -12,15 +12,15 @@ import java.io.Serializable;
  * @author jomar.cardoso
  */
 public abstract class Usuario implements Serializable {
-    
-    private String nome;   
+
+    private String nome;
     private String ip;
-    private int porta;    
+    private int porta;
 
     public Usuario(String ip, int porta) {
         this.ip = ip;
-        this.porta = porta;               
-    }    
+        this.porta = porta;
+    }
 
     public int getPorta() {
         return porta;
@@ -36,8 +36,8 @@ public abstract class Usuario implements Serializable {
 
     public void setIp(String ip) {
         this.ip = ip;
-    }   
-    
+    }
+
     public String getNome() {
         return nome;
     }
@@ -45,4 +45,10 @@ public abstract class Usuario implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    @Override
+    public String toString() {
+        return "NOME:" + nome + "PORTA:" + porta + " IP:" + ip;
+    }
+
 }

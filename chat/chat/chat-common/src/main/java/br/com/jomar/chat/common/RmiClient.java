@@ -12,7 +12,11 @@ import java.rmi.registry.Registry;
 public class RmiClient<T> {
 
     public T getService() throws RemoteException, NotBoundException {
-        Registry registry = LocateRegistry.getRegistry(Configuration.SERVICE_HOST);
+        return getService(Configuration.SERVICE_HOST);
+    }
+
+    public T getService(String host) throws RemoteException, NotBoundException {
+        Registry registry = LocateRegistry.getRegistry(host == null ? Configuration.SERVICE_HOST : host);
         return (T) registry.lookup(Configuration.SERVICE_NAME);
     }
 }

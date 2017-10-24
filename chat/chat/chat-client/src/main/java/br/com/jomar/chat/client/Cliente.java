@@ -5,19 +5,14 @@
  */
 package br.com.jomar.chat.client;
 
-import br.com.jomar.chat.client.leitor.util.ClienteLeitor;
-import br.com.jomar.chat.client.leitor.util.LeitorServer;
 import br.com.jomar.chat.common.IMensagem;
 import br.com.jomar.chat.common.IService;
 import br.com.jomar.chat.common.Noticia;
-import br.com.jomar.chat.common.Ping;
 import br.com.jomar.chat.common.Topico;
 import br.com.jomar.chat.common.Usuario;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -66,8 +61,9 @@ public abstract class Cliente implements ICliente {
             return this.service.buscaTopicos();
         } catch (RemoteException ex) {
             erroServidor();
+            return null;
         } 
-        return null;
+        //return null;
     }
     
     /**

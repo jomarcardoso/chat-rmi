@@ -1,8 +1,6 @@
 package br.com.jomar.chat.client.escritor.util;
 
 import br.com.jomar.chat.client.Cliente;
-import br.com.jomar.chat.client.leitor.util.ClienteLeitor;
-import br.com.jomar.chat.client.leitor.util.LeitorServer;
 import br.com.jomar.chat.common.Escritor;
 import br.com.jomar.chat.common.IServiceEscritor;
 import br.com.jomar.chat.common.Noticia;
@@ -11,11 +9,6 @@ import br.com.jomar.chat.common.Usuario;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 

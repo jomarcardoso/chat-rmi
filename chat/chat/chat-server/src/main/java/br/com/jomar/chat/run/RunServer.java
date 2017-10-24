@@ -12,9 +12,7 @@ import java.util.logging.Logger;
 
 import br.com.jomar.chat.common.Configuration;
 import br.com.jomar.chat.common.IServidor;
-import br.com.jomar.chat.common.Leitor;
 import br.com.jomar.chat.common.Topico;
-import br.com.jomar.chat.server.Repositorio;
 import br.com.jomar.chat.server.Servidor;
 
 /**
